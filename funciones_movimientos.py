@@ -56,17 +56,25 @@ def aplicar_gravedad(personaje, rect_personaje, plataformas):
 
     rect_personaje.y += personaje["velocidad y"]  # Actualiza la posición en Y
 
-    # Verifica colisión con las plataformas
-    personaje["en suelo"] = False  # Asumimos que no está en el suelo por defecto
+    # Verificar colisión con las plataformas
+    personaje["en suelo"] = False
+
     for plataforma in plataformas:
-        if rect_personaje.colliderect(plataforma) and personaje["velocidad y"] > 0:
-            rect_personaje.bottom = plataforma.top  # Asegúrate de que el personaje esté exactamente sobre la plataforma
-            personaje["en suelo"] = True
-            personaje["velocidad y"] = 0  # Detener la caída
-            break
+        if rect_personaje.colliderect(plataforma) and personaje["velocidad y"] > 0: # Solo si está cayendo
+            if rect_personaje.bottom < plataforma.bottom : 
+                # Coloca al personaje sobre la plataforma
+                rect_personaje.bottom = plataforma.top
+                personaje["en suelo"] = True
+                personaje["velocidad y"] = 0  # Detener la caída
+                break
+    
     # Verifica colisión con el suelo
-    if rect_personaje.bottom >= ALTO -50:  # Asumiendo que el suelo está en el borde inferior
+    if rect_personaje.bottom >= ALTO -50:  # un poco mas arriba del suelo para que quede bien esteticamente
         rect_personaje.bottom = ALTO -50
         personaje["en suelo"] = True
         personaje["velocidad y"] = 0  # Detener la caída
+
+    # limitar caida por bugs
+    if personaje["velocidad y"] > 15:
+        personaje["velocidad y"] = 15
 

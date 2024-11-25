@@ -31,7 +31,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         teclas = pygame.key.get_pressed()
         #mover_personaje(protagonista, rect_personaje, teclas, sprites)
         aplicar_gravedad(protagonista, rect_personaje, plataformas)
-        dibujar_plataformas(ventana, plataformas)
+        dibujar_plataformas(ventana, plataformas, sprite_plataforma)
 
         mover_personaje(protagonista, rect_personaje, teclas, sprites)
         '''ventana.blit(sprites[protagonista["sprite actual"]], rect_personaje)  # Dibujar el sprite actual'''
@@ -41,7 +41,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         # Si el personaje va a la izquierda, lo volteamos (flip)
         if teclas[pygame.K_LEFT]:
             sprite_personaje = pygame.transform.flip(sprite_personaje, True, False)
-
+        dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
         # Dibujar el sprite en la pantalla
         ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
