@@ -14,17 +14,20 @@ protagonista = {
     "velocidad y": 5,
     "en suelo": True,
     "fuerza salto": 12,
-    "gravedad": 0.5
+    "gravedad": 0.5,
+    "sprite actual" : "inactivo"
 }
 
 
-sprite_inactivo = pygame.image.load("assets/images/protagonista.png")
-sprite_inactivo = pygame.transform.scale(sprite_inactivo, (150, 150))
-rect_personaje = sprite_inactivo.get_rect()
-rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"])
+sprites = {
+    "inactivo": pygame.transform.scale(pygame.image.load("assets/images/protagonista.png"), (120, 150)),
+    "corriendo_1": pygame.transform.scale(pygame.image.load("assets/images/protagonista_camina_uno.png"), (200, 170)),
+    "corriendo_2": pygame.transform.scale(pygame.image.load("assets/images/protagonista_camina_dos.png"), (200, 170)),
+}
 
-sprite_corriendo_uno = pygame.image.load("assets/images/protagonista_camina_uno.png")
-sprite_corriendo_dos = pygame.image.load("assets/images/protagonista_camina_dos.png")
+# Crear el rectángulo para el personaje, usando el sprite "inactivo" por ahora
+rect_personaje = sprites["inactivo"].get_rect()
+rect_personaje.topleft = (200, 600)
 
 
 

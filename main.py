@@ -29,7 +29,7 @@ while jugando: #bucle principal del juego
         escena_actual = menu(ventana)
 
     elif escena_actual == "primer_escenario":
-        escena_actual = primer_escenario(ventana, protagonista)
+        escena_actual = primer_escenario(ventana, protagonista, sprites)
 
     elif escena_actual == "salir":
         jugando = False

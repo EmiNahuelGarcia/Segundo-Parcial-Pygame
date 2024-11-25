@@ -4,12 +4,14 @@ from personajes import *
 from funciones_movimientos import *
 from menu import *
 
-def primer_escenario(ventana,protagonista):
+def primer_escenario(ventana,protagonista, sprites):
     reloj = pygame.time.Clock()
     jugando = True
-    ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
+    
 
     while jugando:
+
+        ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
         
 
         # Manejo de eventos
@@ -22,11 +24,13 @@ def primer_escenario(ventana,protagonista):
                 
 
         
-        ventana.blit(sprite_inactivo, (protagonista["posicion x"], protagonista["posicion y"]))
+        
         
         teclas = pygame.key.get_pressed()
         mover_personaje(protagonista, rect_personaje, teclas)
         aplicar_gravedad(protagonista, rect_personaje)
-        
+
+        ventana.blit(sprites[protagonista["sprite actual"]], rect_personaje)  # Dibujar el sprite actual
+
         pygame.display.flip()
         reloj.tick(60)
