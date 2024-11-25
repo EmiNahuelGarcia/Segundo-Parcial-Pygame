@@ -12,6 +12,7 @@ from funciones_dibujar import *
 ventana = pygame.display.set_mode((ANCHO, ALTO)) #creacion de la ventana
 
 
+
 RELOJ = pygame.time.Clock()
 
 FPS = 60

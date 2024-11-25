@@ -1,15 +1,17 @@
 import pygame
 from configuracion import *
-from personajes import *
 from funciones_movimientos import *
 from menu import *
+from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
+from funciones_disparar import *
 
 def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
     jugando = True
-    
+    mirando_izquierda = False
+    mirando_derecha = True 
 
     while jugando:
 
@@ -38,10 +40,33 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         # Obtener el sprite actual
         sprite_personaje = sprites[protagonista["sprite actual"]]
 
-        # Si el personaje va a la izquierda, lo volteamos (flip)
+        # Si el personaje se mueve a la izquierda
         if teclas[pygame.K_LEFT]:
             sprite_personaje = pygame.transform.flip(sprite_personaje, True, False)
+            if not mirando_izquierda:
+                # Voltea el sprite inactivo también
+                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
+                mirando_izquierda = True
+                mirando_derecha = False
+
+        # Si el personaje se mueve a la derecha
+        if teclas[pygame.K_RIGHT]: 
+            if not mirando_derecha:
+                # Voltea el sprite inactivo también
+                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
+                mirando_izquierda = False
+                mirando_derecha = True
+        
+        
         dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
+
+        # Disparar al presionar la tecla espacio
+        
+        disparar(rect_personaje, proyectiles, mirando_derecha, teclas)
+        # Dibujar los proyectiles
+        dibujar_proyectiles(ventana, proyectiles)
+        # Mover los proyectiles
+        mover_proyectiles(proyectiles)
         # Dibujar el sprite en la pantalla
         ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
