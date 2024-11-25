@@ -1,9 +1,11 @@
 import pygame
 from configuracion import *
-from personajes import *
 from funciones_movimientos import *
 from menu import *
+from primer_escenario import *
+from personajes import *
 from plataformas_primer_escenario import *
+from funciones_dibujar import *
 
 
 def dibujar_plataformas(ventana, plataformas, sprite_plataforma):

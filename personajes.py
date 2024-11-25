@@ -15,7 +15,9 @@ protagonista = {
     "en suelo": True,
     "fuerza salto": 14,
     "gravedad": 0.5,
-    "sprite actual" : "inactivo"
+    "sprite actual" : "inactivo",
+    "ultimo disparo": 0,  # control de disparos
+    "cooldown disparo": 500  # 500 ms entre disparos
 }
 
 
@@ -41,7 +43,9 @@ enemigos = {
         "salud": 100,
         "posicion x": 200,
         "posicion y": 320,
-        "direccion": "izquierda",  # Dirección en la que está mirando
+        "direccion": "izquierda",
+        "ultimo disparo": 0,  # Tiempo del último disparo
+        "cooldown disparo": 1000  # Tiempo en milisegundos entre disparos  # Dirección en la que está mirando
     },
     "enemigo_2": {
         "tipo": "pistola",
@@ -50,6 +54,8 @@ enemigos = {
         "posicion x": 350,
         "posicion y": 220,
         "direccion": "derecha",
+        "ultimo disparo": 0,  # Tiempo del último disparo
+        "cooldown disparo": 1000  # Tiempo en milisegundos entre disparos
     },
     "enemigo_3": {
         "tipo": "ametralladora",
@@ -58,6 +64,8 @@ enemigos = {
         "posicion x": 700,
         "posicion y": 650,
         "direccion": "derecha",
+        "ultimo disparo": 0,  # Tiempo del último disparo
+        "cooldown disparo": 1000  # Tiempo en milisegundos entre disparos
     },
     "enemigo_4": {
         "tipo": "ametralladora",
@@ -66,6 +74,8 @@ enemigos = {
         "posicion x": 620,
         "posicion y": 105,
         "direccion": "derecha",
+        "ultimo disparo": 0,  # Tiempo del último disparo
+        "cooldown disparo": 1000  # Tiempo en milisegundos entre disparos
     },
 }
 
@@ -73,17 +83,20 @@ enemigos = {
 sprites_enemigos = {
     "pistola_izquierda": pygame.transform.scale(pygame.image.load("assets/images/enemigo_pistola.png"), (90, 90)),
     "pistola_derecha": pygame.transform.scale(pygame.image.load("assets/images/enemigo_pistola.png"), (90, 90)),
-    "ametralladora_izquierda": pygame.transform.scale(pygame.image.load("assets/images/enemigo_ametralladora.png"), (100, 100)),
-    "ametralladora_derecha": pygame.transform.scale(pygame.image.load("assets/images/enemigo_ametralladora.png"), (100, 100)),
+    "ametralladora_izquierda": pygame.transform.scale(pygame.image.load("assets/images/enemigo_ametralladora.png"), (100, 110)),
+    "ametralladora_derecha": pygame.transform.scale(pygame.image.load("assets/images/enemigo_ametralladora.png"), (100, 110)),
 }
 
+# Crear los rectángulos para cada enemigo
 rects_enemigos = {}
-for enemigo in enemigos:
-    enemigo_data = enemigos[enemigo]
+for enemigo_key, enemigo_data in enemigos.items():
+    # Obtener el sprite y las dimensiones del enemigo
     sprite = sprites_enemigos[enemigo_data["sprite"]]
-    rect = sprite.get_rect()
-    rect.topleft = (enemigo_data["posicion x"], enemigo_data["posicion y"])
-    rects_enemigos[enemigo] = rect
+    rect = sprite.get_rect()  # Obtener el rect del sprite
+    rect.topleft = (enemigo_data["posicion x"], enemigo_data["posicion y"])  # Posición del enemigo
+    rects_enemigos[enemigo_key] = rect  # Guardar el rect en el diccionario
+
+
 
 mickey_mouse = {
 

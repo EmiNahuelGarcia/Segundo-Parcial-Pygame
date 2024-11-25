@@ -16,6 +16,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     while jugando:
 
         ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
+        tiempo_actual = pygame.time.get_ticks()  # Obtener el tiempo actual en milisegundos
         
 
         # Manejo de eventos
@@ -62,12 +63,34 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
 
         # Disparar al presionar la tecla espacio
         
-        disparar(rect_personaje, proyectiles, mirando_derecha, teclas)
+        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles
         mover_proyectiles(proyectiles)
+        
+        # Actualizar cada enemigo
+        for enemigo in enemigos.values():  # Iterar sobre todos los enemigos
+            disparar_enemigo(enemigo, proyectiles_enemigos, rect_personaje, tiempo_actual)
+
+        # Verificar colisiones con el protagonista
+        verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos)
+
+        # Mover proyectiles enemigos
+        mover_proyectiles_enemigos(proyectiles_enemigos)
+
+# Dibujar los proyectiles enemigos en la pantalla
+        dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos)
         # Dibujar el sprite en la pantalla
+        for proyectil in proyectiles:
+            pygame.draw.rect(ventana, (255, 0, 0), proyectil["rect"], 2)  # Color rojo
+
+# Dibujar los enemigos
+        for enemigo_key, enemigo_data in enemigos.items():
+            pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
+
+# Dibujar el protagonista
+            pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
         ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
         reloj.tick(60)
