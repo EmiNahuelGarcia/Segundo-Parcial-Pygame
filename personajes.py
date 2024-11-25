@@ -8,8 +8,8 @@ protagonista = {
     "ataque": 10,
     "puntuacion": 0,
     "llaves": 0,
-    "posicion x": 200,
-    "posicion y": 600,  
+    "posicion x": 20,
+    "posicion y": 50,  
     "velocidad x": 5,
     "velocidad y": 5,
     "en suelo": True,
@@ -27,7 +27,9 @@ sprites = {
 
 # Crear el rectángulo para el personaje, usando el sprite "inactivo" por ahora
 rect_personaje = sprites["inactivo"].get_rect()
-rect_personaje.topleft = (200, 600)
+rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"])
+rect_personaje.width = 80  # Ajustar el ancho del rectángulo
+rect_personaje.height = 120  # Ajustar la altura del rectángulo
 
 
 

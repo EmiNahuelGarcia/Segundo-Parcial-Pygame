@@ -3,8 +3,10 @@ from configuracion import *
 from personajes import *
 from funciones_movimientos import *
 from menu import *
+from plataformas_primer_escenario import *
+from funciones_dibujar import *
 
-def primer_escenario(ventana,protagonista, sprites):
+def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
     jugando = True
     
@@ -27,10 +29,20 @@ def primer_escenario(ventana,protagonista, sprites):
         
         
         teclas = pygame.key.get_pressed()
-        mover_personaje(protagonista, rect_personaje, teclas)
-        aplicar_gravedad(protagonista, rect_personaje)
+        #mover_personaje(protagonista, rect_personaje, teclas, sprites)
+        aplicar_gravedad(protagonista, rect_personaje, plataformas)
+        dibujar_plataformas(ventana, plataformas)
 
-        ventana.blit(sprites[protagonista["sprite actual"]], rect_personaje)  # Dibujar el sprite actual
+        mover_personaje(protagonista, rect_personaje, teclas, sprites)
+        '''ventana.blit(sprites[protagonista["sprite actual"]], rect_personaje)  # Dibujar el sprite actual'''
+        # Obtener el sprite actual
+        sprite_personaje = sprites[protagonista["sprite actual"]]
 
+        # Si el personaje va a la izquierda, lo volteamos (flip)
+        if teclas[pygame.K_LEFT]:
+            sprite_personaje = pygame.transform.flip(sprite_personaje, True, False)
+
+        # Dibujar el sprite en la pantalla
+        ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
         reloj.tick(60)

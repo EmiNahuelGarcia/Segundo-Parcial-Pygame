@@ -1,10 +1,6 @@
 import pygame
 import sys
 from configuracion import *
-x, y = pygame.mouse.get_pos() #captura el mouse
-
-
-
 
 
 def menu(ventana):

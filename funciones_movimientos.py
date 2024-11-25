@@ -4,32 +4,8 @@ from personajes import *
 
 
 
-'''def mover_personaje(personaje, rect_personaje, teclas):
-    """Mueve al personaje y actualiza su posición en el rectángulo."""
-    # Movimiento horizontal
-    if teclas[pygame.K_LEFT]:
-        rect_personaje.x -= personaje["velocidad x"]
-        personaje["sprite actual"] = "corriendo_1"
-        
-        
-    elif teclas[pygame.K_RIGHT]:
-        rect_personaje.x += personaje["velocidad x"]
-        personaje["sprite actual"] = "corriendo_1"
 
-    
-    else:
-        personaje["sprite actual"] = "inactivo"
-    
-        
-
-    # Salto
-    if teclas[pygame.K_SPACE] and personaje["en suelo"]:
-        personaje["velocidad y"] = -personaje["fuerza salto"]  # Impulso hacia arriba
-        personaje["en suelo"] = False
-        personaje["sprite actual"] = "corriendo_1"'''
-
-
-def mover_personaje(personaje, rect_personaje, teclas):
+def mover_personaje(personaje, rect_personaje, teclas, sprites):
     """Mueve al personaje y actualiza su posición en el rectángulo."""
     # Movimiento horizontal
     if teclas[pygame.K_LEFT] or teclas[pygame.K_RIGHT]:
@@ -45,34 +21,52 @@ def mover_personaje(personaje, rect_personaje, teclas):
         # Movimiento a la izquierda
         if teclas[pygame.K_LEFT]:
             rect_personaje.x -= personaje["velocidad x"]
+            # Voltear el sprite horizontalmente cuando va a la izquierda
+            '''sprite_volteado = pygame.transform.flip(sprites[personaje["sprite actual"]], True, False)
+            sprites[personaje["sprite actual"]] = sprite_volteado'''
+            if rect_personaje.left < 10:
+                rect_personaje.left = 10
+            
 
         # Movimiento a la derecha
         if teclas[pygame.K_RIGHT]:
             rect_personaje.x += personaje["velocidad x"]
+            if rect_personaje.right > ANCHO -10:
+                rect_personaje.right = ANCHO -10
+            
     else:
         personaje["sprite actual"] = "inactivo"  # Si no se mueve, vuelve al sprite inactivo
+        
+
 
     if teclas[pygame.K_SPACE] and personaje["en suelo"]:
         personaje["velocidad y"] = -personaje["fuerza salto"]  # Impulso hacia arriba
         personaje["en suelo"] = False
         personaje["sprite actual"] = "corriendo_1"
 
-def aplicar_gravedad(personaje, rect_personaje):
+    
+
+    
+
+
+def aplicar_gravedad(personaje, rect_personaje, plataformas):
     """Aplica gravedad y verifica si el personaje toca el suelo."""
     if not personaje["en suelo"]:
         personaje["velocidad y"] += personaje["gravedad"]  # Aumenta la velocidad vertical
 
     rect_personaje.y += personaje["velocidad y"]  # Actualiza la posición en Y
 
+    # Verifica colisión con las plataformas
+    personaje["en suelo"] = False  # Asumimos que no está en el suelo por defecto
+    for plataforma in plataformas:
+        if rect_personaje.colliderect(plataforma) and personaje["velocidad y"] > 0:
+            rect_personaje.bottom = plataforma.top  # Asegúrate de que el personaje esté exactamente sobre la plataforma
+            personaje["en suelo"] = True
+            personaje["velocidad y"] = 0  # Detener la caída
+            break
     # Verifica colisión con el suelo
-    if rect_personaje.bottom >= ALTO:  # Asumiendo que el suelo está en el borde inferior
-        rect_personaje.bottom = ALTO
+    if rect_personaje.bottom >= ALTO -50:  # Asumiendo que el suelo está en el borde inferior
+        rect_personaje.bottom = ALTO -50
         personaje["en suelo"] = True
         personaje["velocidad y"] = 0  # Detener la caída
 
-def dibujar_personaje(ventana, personaje, sprites):
-    """Dibuja el sprite actual del personaje en la ventana."""
-    frame_actual = personaje["frame_actual"]
-    sprite_actual = personaje["sprite_actual"]
-    sprite = sprites[sprite_actual][frame_actual]
-    ventana.blit(sprite, (personaje["posicion x"], personaje["posicion y"]))
