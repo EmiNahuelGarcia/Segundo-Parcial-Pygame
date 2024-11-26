@@ -24,3 +24,9 @@ def dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos):
         else:  # Si el enemigo está mirando a la derecha, se voltea el sprite
             sprite_volteado = pygame.transform.flip(sprite, True, False)
             ventana.blit(sprite_volteado, rects_enemigos[enemigo_id])
+
+
+def dibujar_monedas(ventana, monedas, sprite_moneda):
+    for moneda in monedas:
+        if not moneda["recogida"]:
+            ventana.blit(sprite_moneda, moneda["rect"])

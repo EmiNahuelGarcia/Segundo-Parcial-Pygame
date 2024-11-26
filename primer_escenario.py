@@ -6,6 +6,7 @@ from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_disparar import *
+from funciones_monedas import *
 
 def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
@@ -60,6 +61,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         
         
         dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
+        dibujar_monedas(ventana, monedas, sprite_moneda)
 
         # Disparar al presionar la tecla espacio
         
@@ -79,17 +81,17 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         # Mover proyectiles enemigos
         mover_proyectiles_enemigos(proyectiles_enemigos)
 
-# Dibujar los proyectiles enemigos en la pantalla
+        # Dibujar los proyectiles enemigos en la pantalla
         dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos)
         # Dibujar el sprite en la pantalla
         for proyectil in proyectiles:
             pygame.draw.rect(ventana, (255, 0, 0), proyectil["rect"], 2)  # Color rojo
 
-# Dibujar los enemigos
+            # Dibujar los enemigos
         for enemigo_key, enemigo_data in enemigos.items():
             pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
 
-# Dibujar el protagonista
+            # Dibujar el protagonista
             pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
         ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
