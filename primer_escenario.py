@@ -1,8 +1,6 @@
 import pygame
 from configuracion import *
 from funciones_movimientos import *
-from menu import *
-from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_disparar import *

@@ -1,40 +1,71 @@
 import pygame
 import sys
-from configuracion import *
+from primer_escenario import primer_escenario
+from personajes import *
 
+ALTO = 600
+ANCHO = 800
+VIOLETA = (128, 0, 255)
+BLANCO = (255, 255, 255)
+OPCIONES = ["Jugar", "Opciones", "Créditos", "Ranking", "Salir"]
+PATH_ICONO = "assets\images\logo_juego.png"
+PATH_FONDO = "assets\images\menu_fondo.jpg"
+TITLE = "Juego - Developers"
+OFFSET_VERTICAL = 150
+ESPACIADO_VERTICAL = 100
 
-def menu(ventana):
-    opciones = ["Jugar", "Salir"]
-    opcion_seleccionada = 0  # Índice de la opción seleccionada
+def crear_ventana():
+    pygame.init()
+    ventana = pygame.display.set_mode((ANCHO, ALTO))
+    icono = pygame.image.load(PATH_ICONO)
+    fondo = pygame.image.load(PATH_FONDO)
+    pygame.display.set_caption(TITLE)
+    pygame.display.set_icon(icono)
+    ventana.blit(fondo, (0, 0))
+    return ventana
 
-    ejecutando_menu = True
-    while ejecutando_menu:
-        ventana.fill(NEGRO)  # Fondo negro
+def dibujar_menu(seleccion, ventana):
+    
+    fuente = pygame.font.Font(None, 36)
+    for i, opcion in enumerate(OPCIONES):
+        etiqueta = fuente.render(opcion, True, VIOLETA if i == seleccion else BLANCO)
+        ventana.blit(etiqueta, (ANCHO // 2 - etiqueta.get_width() // 2, OFFSET_VERTICAL + i * ESPACIADO_VERTICAL))
+    pygame.display.flip()
 
-        # Dibujar las opciones del menú
-        for i, texto in enumerate(opciones):
-            color = AZUL if i == opcion_seleccionada else BLANCO  # Resalta la opción seleccionada
-            render_texto = FUENTE.render(texto, True, color)
-            ventana.blit(render_texto, (ANCHO // 2 - render_texto.get_width() // 2, 200 + i * 60))
+def handler_seleccion(seleccion, ventana):
+    if seleccion == 0:
+        primer_escenario(ventana,protagonista,sprite,rect_personaje)
+    elif seleccion == 1:
+        print("Opciones seleccionado")
+    elif seleccion == 2:
+        print("Créditos seleccionado")
+    elif seleccion == 3:
+        print("Ranking seleccionado")
+    elif seleccion == 4:
+        return False
+    return True
 
-        # Manejar eventos
+def handler_menu_eventos(ventana):
+    seleccion = 0
+    ejecutando = True
+    while ejecutando:
+        dibujar_menu(seleccion, ventana)
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
             if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_UP:  # Mover hacia arriba
-                    opcion_seleccionada = (opcion_seleccionada - 1) % len(opciones)
-                if evento.key == pygame.K_DOWN:  # Mover hacia abajo
-                    opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones)
-                if evento.key == pygame.K_RETURN:  # Seleccionar opción
-                    if opciones[opcion_seleccionada] == "Jugar":
-                        return "primer_escenario"
-                     
-                    elif opciones[opcion_seleccionada] == "Salir":
-                        pygame.quit()
-                        sys.exit()
+                if evento.key == pygame.K_DOWN:
+                    seleccion = (seleccion + 1) % len(OPCIONES)
+                if evento.key == pygame.K_UP:
+                    seleccion = (seleccion - 1) % len(OPCIONES)
+                if evento.key == pygame.K_RETURN:
+                    ejecutando = handler_seleccion(seleccion, ventana)
 
-        # Actualizar pantalla
-        pygame.display.flip()
+def menu():
+    reloj = pygame.time.Clock()
+    reloj.tick(60)
+    handler_menu_eventos(crear_ventana())
+    pygame.quit()
+
+menu()
