@@ -78,6 +78,8 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         # Verificar colisiones con el protagonista
         verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos)
 
+        verificar_colision_monedas(rect_personaje, monedas)
+
         # Mover proyectiles enemigos
         mover_proyectiles_enemigos(proyectiles_enemigos)
 
