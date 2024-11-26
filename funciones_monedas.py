@@ -11,8 +11,11 @@ monedas = [
 # Cargar el sprite de la moneda
 sprite_moneda = pygame.transform.scale(pygame.image.load("assets/images/cristal_escenario_uno.png"), (100, 90))
 
-def verificar_colision_monedas(rect_personaje, monedas):
+def verificar_colision_monedas(rect_personaje, monedas, protagonista : dict):
     for moneda in monedas:
         if not moneda["recogida"] and moneda["rect"].colliderect(rect_personaje):
             moneda["recogida"] = True
+            protagonista["puntuacion"] += 50
+            print(protagonista["puntuacion"])
             print("¡Moneda recogida!")
+            return protagonista
