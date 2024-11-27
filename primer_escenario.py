@@ -76,9 +76,12 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
             disparar_enemigo(enemigo, proyectiles_enemigos, rect_personaje, tiempo_actual)
 
         # Verificar colisiones con el protagonista
-        verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos)
+        verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos, protagonista)
 
         verificar_colision_monedas(rect_personaje, monedas, protagonista)
+
+        verificar_puntaje(protagonista)
+        verificar_vida(protagonista)
 
         # Mover proyectiles enemigos
         mover_proyectiles_enemigos(proyectiles_enemigos)
@@ -96,5 +99,6 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
             # Dibujar el protagonista
             pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
         ventana.blit(sprite_personaje, rect_personaje)
+        dibujar_stats(ventana, protagonista)
         pygame.display.flip()
         reloj.tick(60)

@@ -85,31 +85,33 @@ def disparar_enemigo(enemigo, proyectiles_enemigos, rect_personaje, tiempo_actua
 
 
 
-def verificar_colisiones_proyectiles(proyectiles: list, rect_personaje, enemigos, rects_enemigos):
+def verificar_colisiones_proyectiles(proyectiles: list, rect_personaje, enemigos, rects_enemigos, protagonista : dict):
     """Verifica si algun proyectil golpea al protagonista o a los enemigos."""
     
     for proyectil in proyectiles_enemigos[:]:  # itera sobre una copia
         # Verificar colisión con el personaje
         if proyectil["rect"].colliderect(rect_personaje):
-            protagonista["vida"] -= 10  # Reducir vida del protagonista
+            protagonista["vida"] = max(protagonista["vida"] - 10, 0)  # Reducir vida del protagonista
+            print(protagonista["vida"])
+            protagonista["puntuacion"] = max(protagonista["puntuacion"] - 5, 0)
+            print(f"{protagonista["puntuacion"]} puntos")
             print("GOLPE AL PROTAGONISTA POR ENEMIGO")
             proyectiles_enemigos.remove(proyectil)  # Eliminar el proyectil tras la colisión
     
     for proyectil in proyectiles[:]:  # itera sobre una copia 
         # Verificar colisión con el personaje
-        if proyectil["rect"].colliderect(rect_personaje):
-            protagonista["vida"] -= 10  # Reducir vida del protagonista
-            print("GOLPE A PROTAGONISTA")
+        if proyectil["rect"].colliderect(rect_personaje):           
             proyectiles.remove(proyectil)  # Eliminar el proyectil tras la colisión
-            # No usamos continue aquí, para que el proyectil también revise las colisiones con los enemigos
+            
 
-        # Verificar colisión con los enemigos
+        # Verificar colision con los enemigos
         for enemigo_key, enemigo_data in enemigos.items():
-                # Obtener el rectángulo del enemigo
+                # Obtener el rectangulo del enemigo
                 enemigo_rect = rects_enemigos[enemigo_key]
                 if proyectil["rect"].colliderect(enemigo_rect):
                     # Reducir la salud del enemigo
-                    enemigo_data["salud"] -= 10  # Supongamos que el proyectil hace 10 de daño
+                    enemigo_data["salud"] -= 10  #10 de daño
+                    protagonista["puntuacion"] += 10
                     print(f"{enemigo_key} recibió daño, salud restante: {enemigo_data['salud']}")
 
                     # Eliminar el proyectil tras la colisión
@@ -138,3 +140,11 @@ def mover_proyectiles_enemigos(proyectiles_enemigos):
 def dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos):
     for proyectil in proyectiles_enemigos:
         ventana.blit(proyectil_img, proyectil["rect"])  # Dibuja el proyectil en su posición
+
+
+
+def verificar_vida(protagonista : dict):
+
+    if protagonista["vida"] <= 0:
+        protagonista["vida"] = 0
+        return protagonista

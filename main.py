@@ -35,6 +35,9 @@ while jugando: #bucle principal del juego
     elif escena_actual == "primer_escenario":
         escena_actual = primer_escenario(ventana, protagonista, sprites, rect_personaje)
 
+    elif escena_actual == "segundo_escenario": #PLACEHOLDER DE SEGUNDO ESCENARIO
+        pass
+    
     elif escena_actual == "salir":
         jugando = False
         

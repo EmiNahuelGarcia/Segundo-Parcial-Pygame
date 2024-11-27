@@ -1,4 +1,5 @@
 import pygame
+from personajes import *
 
 # Lista de monedas
 monedas = [
@@ -19,3 +20,10 @@ def verificar_colision_monedas(rect_personaje, monedas, protagonista : dict):
             print(protagonista["puntuacion"])
             print("¡Moneda recogida!")
             return protagonista
+        
+def verificar_puntaje(protagonista : dict):
+    
+    if protagonista["puntuacion"] <= 0:
+        
+        protagonista["puntuacion"] = 0
+        return protagonista
