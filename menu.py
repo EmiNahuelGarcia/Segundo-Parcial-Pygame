@@ -4,7 +4,7 @@ from configuracion import *
 from funciones_monedas import *
 from primer_escenario import *
 from segundo_escenario import *
-
+from creditos import *
 
 
 def menu(ventana, monedas):
@@ -42,6 +42,12 @@ def menu(ventana, monedas):
                             return "segundo_escenario"
                         else:
                             return "primer_escenario"
+                    elif seleccion == 1:
+                        return "opciones"
+                    elif seleccion == 2:
+                        return "creditos"
+                    elif seleccion == 3:
+                        return "ranking"
                     elif seleccion == 4:  # Salir
                         pygame.quit()
                         sys.exit()

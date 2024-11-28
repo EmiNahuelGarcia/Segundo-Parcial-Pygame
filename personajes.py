@@ -32,7 +32,6 @@ rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"]
 rect_personaje.width = 70  # Ajustar el ancho del rectángulo
 rect_personaje.height = 120  # Ajustar la altura del rectángulo
 
-
 # Enemigos, usando un diccionario para cada uno
 enemigos = {
     "enemigo_1": {
@@ -95,20 +94,14 @@ for enemigo_key, enemigo_data in enemigos.items():
     rects_enemigos[enemigo_key] = rect  # Guardar el rect en el diccionario
 
 
+sprites_mickey_mouse = {
+    "inactivo": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_inactivo.png"), (120, 150)),
+    "ataque_uno": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_ataque_uno.png"), (200, 170)),
+    "ataque_dos": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_ataque_dos.png"), (200, 170)),
+}
 
-'''mickey_mouse = {
-
+mickey_mouse = {
     "vida": 200,
     "vida maxima": 200,
     "ataque": 30
-
-
-}'''
-
-ancho_fuego = 50
-alto_fuego = 50
-fuego = pygame.transform.scale(pygame.image.load("assets/images/fuego_segundo_escenario.png"),(ancho_fuego, alto_fuego))
-
-
-
-
+} # Implementar enemigo final
