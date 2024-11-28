@@ -24,11 +24,10 @@ FONDO_VICTORIA_PRIMER_ESCENARIO = pygame.transform.scale(pygame.image.load("asse
 
 darth_vader = pygame.image.load("assets/images/darth_vader.png")
 darth_vader = pygame.transform.scale(darth_vader, (200, 200))
-rect_darth_vader = darth_vader.get_rect()
-rect_darth_vader.topleft = (100, 600)
 
-mickey = pygame.image.load("assets/images/mickey.png")
-mickey = pygame.transform.scale(mickey, (150, 150))
+
+'''mickey = pygame.image.load("assets/images/mickey.png")
+mickey = pygame.transform.scale(mickey, (150, 150))'''
 
 pygame.display.set_icon(ICONO)
 

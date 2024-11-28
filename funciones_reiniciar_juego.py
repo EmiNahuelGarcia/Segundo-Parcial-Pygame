@@ -6,7 +6,6 @@ def reiniciar_juego():
     # Reiniciar protagonista
     protagonista.update({
         "nombre": "Jugador",
-        "vida": 100,
         "ataque": 10,
         "puntuacion": 0,
         "posicion x": 20,
@@ -148,7 +147,6 @@ def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
 def reiniciar_prota(protagonista):
     protagonista.update({
         "nombre": "Jugador",
-        "vida": 100,
         "ataque": 10,
         "posicion x": 20,
         "posicion y": 50,  
@@ -162,3 +160,9 @@ def reiniciar_prota(protagonista):
         "cooldown disparo": 500
     })
     rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"]) # Reinicia rectangulo
+
+
+def reiniciar_vida(protagonista: dict):
+        
+    protagonista["vida"] = 100
+    

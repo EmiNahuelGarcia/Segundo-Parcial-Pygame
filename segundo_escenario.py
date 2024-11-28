@@ -8,19 +8,22 @@ from funciones_dibujar import *
 from funciones_disparar import *
 from funciones_monedas import *
 from funciones_reiniciar_juego import *
+from plataformas_segundo_escenario import *
 
 
 
-def segundo_escenario(ventana, protagonista, sprites, rect_personaje):
+def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataformas):
     reloj = pygame.time.Clock()
     jugando = True
     mirando_izquierda = False
     mirando_derecha = True 
+    fuegos_activos = [generar_fuego() for _ in range(5)]
 
     while jugando:
         if protagonista["vida"] == 0:
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
+            reiniciar_vida(protagonista)
             return "menu"
         
         ventana.blit(FONDO_DOS, (0, 0))  # Fondo del segundo escenario
@@ -59,14 +62,17 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje):
                 mirando_derecha = True
 
         # Lógica de movimiento y otras acciones
-        aplicar_gravedad(protagonista, rect_personaje, plataformas)
-        dibujar_plataformas(ventana, plataformas, sprite_plataforma)  # Asegúrate de que las plataformas estén correctas
+        aplicar_gravedad(protagonista, rect_personaje, plataformas_segundo_escenario)
+        dibujar_plataformas(ventana, plataformas_segundo_escenario , sprite_plataforma)  # Asegúrate de que las plataformas estén correctas
         
         disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles
         mover_proyectiles(proyectiles)
+
+        manejar_fuegos(fuegos_activos, ventana, protagonista, rect_personaje)
+
 
         ventana.blit(sprite_personaje, rect_personaje)  # Asegúrate de que el sprite correcto se dibuje
         dibujar_stats(ventana, protagonista)

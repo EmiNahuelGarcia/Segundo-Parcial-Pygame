@@ -15,11 +15,14 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
     jugando = True
     mirando_izquierda = False
     mirando_derecha = True 
+    plataformas = inicializar_plataformas()
+    
 
     while jugando:
         if protagonista["vida"] == 0:
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
+            reiniciar_vida(protagonista)
             return "menu"
 
         ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario

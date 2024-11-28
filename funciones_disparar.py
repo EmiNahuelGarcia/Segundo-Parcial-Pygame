@@ -6,6 +6,7 @@ from primer_escenario import *
 from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
+import random
 
 # Lista de proyectiles
 proyectiles = []
@@ -141,6 +142,33 @@ def dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos):
     for proyectil in proyectiles_enemigos:
         ventana.blit(proyectil_img, proyectil["rect"])  # Dibuja el proyectil en su posición
 
+
+def generar_fuego():
+    x_random = random.randint(0, ANCHO - ancho_fuego)  # Posición aleatoria en el eje X
+    y_inicial = -alto_fuego  # Fuera de la pantalla (parte superior)
+    velocidad = random.randint(5, 10)  # Velocidad de caída aleatoria
+    return {"rect": pygame.Rect(x_random, y_inicial, ancho_fuego, alto_fuego), "velocidad": velocidad}
+
+
+# Función para manejar el movimiento y las colisiones de los fuegos
+def manejar_fuegos(fuegos_activos, ventana, protagonista, rect_protagonista):
+
+    for fuego_item in fuegos_activos[:]:  # Hacemos una copia para evitar problemas al eliminar elementos
+        fuego_item["rect"].y += fuego_item["velocidad"]  # Actualizar la posición del fuego
+        ventana.blit(fuego, fuego_item["rect"])  # Dibujar el sprite del fuego
+
+        # Comprobar colisión con el protagonista
+        if rect_protagonista.colliderect(fuego_item["rect"]):
+            protagonista["vida"] -= 10  # Reducir vida
+            fuegos_activos.remove(fuego_item)  # Eliminar el fuego que colisionó
+
+        # Eliminar el fuego si sale de la pantalla
+        elif fuego_item["rect"].y > ALTO:
+            fuegos_activos.remove(fuego_item)
+
+    # Generar nuevos fuegos si hay menos de 3
+    while len(fuegos_activos) < 4:
+        fuegos_activos.append(generar_fuego())
 
 
 

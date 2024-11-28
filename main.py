@@ -38,7 +38,7 @@ def main():
             escena_actual = primer_escenario(ventana, protagonista, sprites, rect_personaje)
 
         elif escena_actual == "segundo_escenario":
-            escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje)
+            escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje, plataformas)
         
         elif escena_actual == "salir":
             jugando = False
