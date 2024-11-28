@@ -99,8 +99,9 @@ def game_over(ventana, fondo_game_over):
         ventana.blit(fondo_game_over, (0, 0))
 
         # Agregamos texto en pantalla
-        texto_perdiste = FUENTE.render("¡PERDISTE!", True, (ROJO))  
-        texto_reiniciar = FUENTE.render("Presiona Enter para continuar", True, (ROJO))  
+        fuente = pygame.font.Font(None, 50)
+        texto_perdiste = fuente.render("¡PERDISTE!", True, (ROJO))  
+        texto_reiniciar = fuente.render("Presiona Enter para continuar", True, (ROJO))  
 
         # Centramos los textos en la pantalla
         ventana.blit(texto_perdiste, (ANCHO // 2 - texto_perdiste.get_width() // 2, ALTO // 2 - 50))
@@ -134,8 +135,9 @@ def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
         ventana.blit(fondo_victoria_primer_escenario, (0, 0))
 
         # Agregamos texto en pantalla
-        texto_perdiste = FUENTE.render("¡GANASTE EL PRIMER ESCENARIO!", True, (ROJO))  
-        texto_reiniciar = FUENTE.render("Presiona Enter para continuar", True, (ROJO))  
+        fuente = pygame.font.Font(None, 50)
+        texto_perdiste = fuente.render("¡GANASTE EL PRIMER ESCENARIO!", True, (ROJO))  
+        texto_reiniciar = fuente.render("Presiona Enter para continuar", True, (ROJO))  
 
         # Centramos los textos en la pantalla
         ventana.blit(texto_perdiste, (ANCHO // 2 - texto_perdiste.get_width() // 2, ALTO // 2 - 50))

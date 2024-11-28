@@ -8,7 +8,7 @@ from funciones_monedas import *
 from funciones_reiniciar_juego import *
 
 
-def primer_escenario(ventana,protagonista, sprites, rect_personaje):
+def primer_escenario(ventana):
     reloj = pygame.time.Clock()
     jugando = True
     mirando_izquierda = False
@@ -45,16 +45,13 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
 
         # Si el personaje se mueve a la izquierda
         if teclas[pygame.K_LEFT]:
-            sprites[protagonista["sprite actual"]] = pygame.transform.flip(sprites[protagonista["sprite actual"]], True, False)
             if not mirando_izquierda:  # Solo voltea si actualmente está mirando a la derecha
-                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = True
                 mirando_derecha = False
 
         # Si el personaje se mueve a la derecha
         elif teclas[pygame.K_RIGHT]: 
             if not mirando_derecha:  # Solo voltea si actualmente está mirando a la izquierda
-                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = False
                 mirando_derecha = True
 
@@ -66,7 +63,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
 
         
         
-        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles

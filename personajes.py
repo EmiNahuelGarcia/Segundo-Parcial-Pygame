@@ -16,7 +16,7 @@ protagonista = {
     "sprite actual" : "inactivo",
     "ultimo disparo": 0,  # control de disparos
     "cooldown disparo": 500,  # 500 ms entre disparos
-    "vista": "izquierda"
+    "vista": "derecha"
 }
 
 

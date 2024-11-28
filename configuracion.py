@@ -5,7 +5,7 @@ ANCHO = 800
 
 ALTO = 600
 
-FUENTE = pygame.font.Font(None, 50)
+#*FUENTE = pygame.font.Font(None, 50)
 
 
 NOMBRE_JUEGO = "Developers Game DIV 115"
