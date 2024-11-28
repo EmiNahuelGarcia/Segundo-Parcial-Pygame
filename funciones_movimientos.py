@@ -77,4 +77,3 @@ def aplicar_gravedad(personaje, rect_personaje, plataformas):
     # limitar caida por bugs
     if personaje["velocidad y"] > 15:
         personaje["velocidad y"] = 15
-

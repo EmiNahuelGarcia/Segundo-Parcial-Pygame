@@ -143,6 +143,7 @@ def dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos):
 
 
 
+
 def verificar_vida(protagonista : dict):
 
     if protagonista["vida"] <= 0:

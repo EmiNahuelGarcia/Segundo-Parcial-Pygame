@@ -1,6 +1,5 @@
 import pygame
 
-
 ANCHO = 1000
 
 ALTO = 800
@@ -43,3 +42,12 @@ NEGRO = (0, 0, 0)
 
 BLANCO = (255, 255, 255)
 
+VIOLETA = (128, 0, 255)
+BLANCO = (255, 255, 255)
+OPCIONES = ["Jugar", "Opciones", "Créditos", "Ranking", "Salir"]
+
+
+OFFSET_VERTICAL = ALTO // 4  # Ajustar según el tamaño de la pantalla
+ESPACIADO_VERTICAL = 140  # Modificar según lo que luzca mejor
+
+FONDO_MENU = pygame.transform.scale(pygame.image.load("assets/images/menu_fondo.jpg"), (ANCHO, ALTO))  

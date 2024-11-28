@@ -35,9 +35,9 @@ def dibujar_monedas(ventana, monedas, sprite_moneda):
 def dibujar_stats(ventana, protagonista):
     """Dibuja la vida y el ranking del protagonista en la esquina superior izquierda."""
     # Texto para la vida
-    texto_vida = FUENTE.render(f"Vida: {protagonista['vida']}", True, ROJO)
-    ventana.blit(texto_vida, (10, 10))  # Dibujar en la posición (10, 10)
+    texto_vida = FUENTE.render(f"{protagonista['vida']}", True, BLANCO)
+    ventana.blit(texto_vida, (110, 37))  # Dibujar en la posición (10, 10)
 
     # Texto para el ranking/puntuación
-    texto_puntuacion = FUENTE.render(f"Ranking: {protagonista['puntuacion']}", True, ROJO)
-    ventana.blit(texto_puntuacion, (10, 50))  # Dibujar en la posición (10, 50)
+    texto_puntuacion = FUENTE.render(f"{protagonista['puntuacion']}", True, BLANCO)
+    ventana.blit(texto_puntuacion, (320, 37))  # Dibujar en la posición (10, 50)

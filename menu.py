@@ -6,41 +6,42 @@ from primer_escenario import *
 from segundo_escenario import *
 
 
-def menu(ventana, monedas):
-    opciones = ["Jugar", "Salir"]
-    opcion_seleccionada = 0  # Índice de la opción seleccionada
 
+def menu(ventana, monedas):
+    seleccion = 0  # Inicializa la selección
+    fuente = pygame.font.Font(None, 45)
     ejecutando_menu = True
     while ejecutando_menu:
-        ventana.fill(NEGRO)  # Fondo negro
+        # Dibujar el fondo
+        if FONDO_MENU:
+            ventana.blit(FONDO_MENU, (0, 0))
+        else:
+            ventana.fill((0, 0, 0))  # Fondo negro si no se carga la imagen
 
         # Dibujar las opciones del menú
-        for i, texto in enumerate(opciones):
-            color = AZUL if i == opcion_seleccionada else BLANCO  # Resalta la opción seleccionada
-            render_texto = FUENTE.render(texto, True, color)
-            ventana.blit(render_texto, (ANCHO // 2 - render_texto.get_width() // 2, 200 + i * 60))
+        for i, opcion in enumerate(OPCIONES):
+            etiqueta = fuente.render(opcion, True, VIOLETA if i == seleccion else BLANCO)
+            ventana.blit(etiqueta, (ANCHO // 2 - etiqueta.get_width() // 2, OFFSET_VERTICAL + i * ESPACIADO_VERTICAL))
+        
+        # Actualizar la pantalla
+        pygame.display.update()
 
         # Manejar eventos
         for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
+            if evento.type == pygame.QUIT:  # Cerrar el juego
                 pygame.quit()
                 sys.exit()
-
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_UP:  # Mover hacia arriba
-                    opcion_seleccionada = (opcion_seleccionada - 1) % len(opciones)
+            if evento.type == pygame.KEYDOWN:  # Tecla presionada
                 if evento.key == pygame.K_DOWN:  # Mover hacia abajo
-                    opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones)
+                    seleccion = (seleccion + 1) % len(OPCIONES)
+                if evento.key == pygame.K_UP:  # Mover hacia arriba
+                    seleccion = (seleccion - 1) % len(OPCIONES)
                 if evento.key == pygame.K_RETURN:  # Seleccionar opción
-                    if opciones[opcion_seleccionada] == "Jugar":
+                    if seleccion == 0:  # Jugar
                         if comprobar_victoria(monedas):
                             return "segundo_escenario"
                         else:
                             return "primer_escenario"
-                     
-                    elif opciones[opcion_seleccionada] == "Salir":
+                    elif seleccion == 4:  # Salir
                         pygame.quit()
                         sys.exit()
-
-        # Actualizar pantalla
-        pygame.display.flip()

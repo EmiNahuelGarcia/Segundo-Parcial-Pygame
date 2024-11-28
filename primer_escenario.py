@@ -10,7 +10,7 @@ from funciones_monedas import *
 from funciones_reiniciar_juego import *
 
 
-def primer_escenario(ventana,protagonista, sprites, rect_personaje):
+def primer_escenario(ventana, protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
     jugando = True
     mirando_izquierda = False
@@ -91,6 +91,7 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
 
         verificar_puntaje(protagonista)
         verificar_vida(protagonista)
+
         
         
 
@@ -104,13 +105,15 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         '''for proyectil in proyectiles:
             pygame.draw.rect(ventana, (ROJO), proyectil["rect"], 2)  # Color rojo
 
-            # Dibujar los enemigos
+        # Dibujar los enemigos
         for enemigo_key, enemigo_data in enemigos.items():
-            pygame.draw.rect(ventana, (VERDE), rects_enemigos[enemigo_key], 2)  
-
+            pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
             # Dibujar el protagonista
-            pygame.draw.rect(ventana, (AZUL), rect_personaje, 2)  '''
+            pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
+ '''
+
         ventana.blit(sprite_personaje, rect_personaje)
         dibujar_stats(ventana, protagonista)
         pygame.display.flip()
         reloj.tick(60)
+
