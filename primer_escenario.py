@@ -25,9 +25,6 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
                 if evento.key == pygame.K_ESCAPE:  # Si presiona ESC, regresa al menú
                     return "menu"
                 
-
-        
-        
         
         teclas = pygame.key.get_pressed()
         #mover_personaje(protagonista, rect_personaje, teclas, sprites)
@@ -41,20 +38,19 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
 
         # Si el personaje se mueve a la izquierda
         if teclas[pygame.K_LEFT]:
-            sprite_personaje = pygame.transform.flip(sprite_personaje, True, False)
-            if not mirando_izquierda:
-                # Voltea el sprite inactivo también
+            sprites[protagonista["sprite actual"]] = pygame.transform.flip(sprites[protagonista["sprite actual"]], True, False)
+            if not mirando_izquierda:  # Solo voltea si actualmente está mirando a la derecha
                 sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = True
                 mirando_derecha = False
 
         # Si el personaje se mueve a la derecha
-        if teclas[pygame.K_RIGHT]: 
-            if not mirando_derecha:
-                # Voltea el sprite inactivo también
+        elif teclas[pygame.K_RIGHT]: 
+            if not mirando_derecha:  # Solo voltea si actualmente está mirando a la izquierda
                 sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = False
                 mirando_derecha = True
+
         
         
         dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
@@ -77,18 +73,18 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         # Mover proyectiles enemigos
         mover_proyectiles_enemigos(proyectiles_enemigos)
 
-# Dibujar los proyectiles enemigos en la pantalla
+        # Dibujar los proyectiles enemigos en la pantalla
         dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos)
         # Dibujar el sprite en la pantalla
         for proyectil in proyectiles:
             pygame.draw.rect(ventana, (255, 0, 0), proyectil["rect"], 2)  # Color rojo
 
-# Dibujar los enemigos
+        # Dibujar los enemigos
         for enemigo_key, enemigo_data in enemigos.items():
             pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
-
-# Dibujar el protagonista
+            # Dibujar el protagonista
             pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
+
         ventana.blit(sprite_personaje, rect_personaje)
         pygame.display.flip()
         reloj.tick(60)

@@ -1,9 +1,9 @@
 import pygame
 
 
-ANCHO = 1000
+ANCHO = 800
 
-ALTO = 800
+ALTO = 600
 
 #FUENTE = pygame.font.Font(None, 36)
 
@@ -14,7 +14,7 @@ ICONO = pygame.image.load("assets/images/logo_juego.png")
 pygame.display.set_caption(NOMBRE_JUEGO) #nombre del juego en la ventana
 
 FONDO_UNO = pygame.image.load("assets/images/fondo_primer_escenario.jpg")
-FONDO_UNO= pygame.transform.scale(FONDO_UNO, (1000, 800))
+FONDO_UNO= pygame.transform.scale(FONDO_UNO, (800, 600))
 
 
 darth_vader = pygame.image.load("assets/images/darth_vader.png")

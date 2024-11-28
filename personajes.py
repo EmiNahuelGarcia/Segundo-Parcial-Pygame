@@ -17,7 +17,8 @@ protagonista = {
     "gravedad": 0.5,
     "sprite actual" : "inactivo",
     "ultimo disparo": 0,  # control de disparos
-    "cooldown disparo": 500  # 500 ms entre disparos
+    "cooldown disparo": 500,  # 500 ms entre disparos
+    "vista": "izquierda"
 }
 
 
@@ -32,7 +33,6 @@ rect_personaje = sprites["inactivo"].get_rect()
 rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"])
 rect_personaje.width = 70  # Ajustar el ancho del rectángulo
 rect_personaje.height = 120  # Ajustar la altura del rectángulo
-
 
 
 # Enemigos, usando un diccionario para cada uno

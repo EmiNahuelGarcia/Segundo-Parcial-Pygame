@@ -9,6 +9,17 @@ def mover_personaje(personaje, rect_personaje, teclas, sprites):
     """Mueve al personaje y actualiza su posición en el rectángulo."""
     # Movimiento horizontal
     if teclas[pygame.K_LEFT] or teclas[pygame.K_RIGHT]:
+
+        if teclas[pygame.K_LEFT] and personaje["vista"] == "derecha":
+            print("GIRO A IZQUIERDA")
+            sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
+            personaje["vista"] = "izquierda"
+
+        if teclas[pygame.K_RIGHT] and personaje["vista"] == "izquierda":
+            print("GIRO A DERECHA")
+            sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
+            personaje["vista"] = "derecha"
+
         # Cambiar entre los dos sprites de correr
         if personaje.get("ultimo_cambio", 0) + 150 < pygame.time.get_ticks():  # Cambiar cada 150ms
             personaje["ultimo_cambio"] = pygame.time.get_ticks()
@@ -50,6 +61,7 @@ def mover_personaje(personaje, rect_personaje, teclas, sprites):
 
 
 def aplicar_gravedad(personaje, rect_personaje, plataformas):
+    
     """Aplica gravedad y verifica si el personaje toca el suelo."""
     if not personaje["en suelo"]:
         personaje["velocidad y"] += personaje["gravedad"]  # Aumenta la velocidad vertical
@@ -77,4 +89,5 @@ def aplicar_gravedad(personaje, rect_personaje, plataformas):
     # limitar caida por bugs
     if personaje["velocidad y"] > 15:
         personaje["velocidad y"] = 15
+    
 

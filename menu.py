@@ -1,15 +1,14 @@
 import pygame
 import sys
 from primer_escenario import primer_escenario
-from personajes import *
 
 ALTO = 600
 ANCHO = 800
 VIOLETA = (128, 0, 255)
 BLANCO = (255, 255, 255)
 OPCIONES = ["Jugar", "Opciones", "Créditos", "Ranking", "Salir"]
-PATH_ICONO = "assets\images\logo_juego.png"
-PATH_FONDO = "assets\images\menu_fondo.jpg"
+PATH_ICONO = "logo_developers.png"
+PATH_FONDO = "menu_fondo.jpg"
 TITLE = "Juego - Developers"
 OFFSET_VERTICAL = 150
 ESPACIADO_VERTICAL = 100
@@ -25,8 +24,7 @@ def crear_ventana():
     return ventana
 
 def dibujar_menu(seleccion, ventana):
-    
-    fuente = pygame.font.Font(None, 36)
+    fuente = pygame.font.Font(None, 45)
     for i, opcion in enumerate(OPCIONES):
         etiqueta = fuente.render(opcion, True, VIOLETA if i == seleccion else BLANCO)
         ventana.blit(etiqueta, (ANCHO // 2 - etiqueta.get_width() // 2, OFFSET_VERTICAL + i * ESPACIADO_VERTICAL))
@@ -34,7 +32,8 @@ def dibujar_menu(seleccion, ventana):
 
 def handler_seleccion(seleccion, ventana):
     if seleccion == 0:
-        primer_escenario(ventana,protagonista,sprite,rect_personaje)
+        primer_escenario(ventana)
+        print("Jugar")
     elif seleccion == 1:
         print("Opciones seleccionado")
     elif seleccion == 2:
@@ -63,9 +62,8 @@ def handler_menu_eventos(ventana):
                     ejecutando = handler_seleccion(seleccion, ventana)
 
 def menu():
-    reloj = pygame.time.Clock()
-    reloj.tick(60)
-    handler_menu_eventos(crear_ventana())
+    ventana = crear_ventana()
+    handler_menu_eventos(ventana)
     pygame.quit()
 
 menu()
