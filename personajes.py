@@ -4,7 +4,6 @@ import pygame
 protagonista = {
     "nombre": "Jugador",
     "vida": 100,
-    "vida maxima": 100,
     "ataque": 10,
     "puntuacion": 0,
     "posicion x": 20,

@@ -16,7 +16,7 @@ velocidad_proyectil = 7
 
 # Cargar imagen del proyectil
 proyectil_img = pygame.Surface((10, 5))
-proyectil_img.fill((255, 0, 0))  # Color rojo para el proyectil
+proyectil_img.fill((ROJO))  # Color rojo para el proyectil
 
 
 def disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual):

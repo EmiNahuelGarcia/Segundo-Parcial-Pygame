@@ -10,6 +10,7 @@ from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_monedas import *
 
+
 ventana = pygame.display.set_mode((ANCHO, ALTO)) #creacion de la ventana
 
 
