@@ -1,11 +1,12 @@
 import pygame
 
 
-ANCHO = 1000
+ANCHO = 800
 
-ALTO = 800
+ALTO = 600
 
-FUENTE = pygame.font.Font(None, 50)
+#*FUENTE = pygame.font.Font(None, 50)
+
 
 NOMBRE_JUEGO = "Developers Game DIV 115"
 
@@ -14,6 +15,7 @@ ICONO = pygame.image.load("assets/images/logo_juego.png")
 pygame.display.set_caption(NOMBRE_JUEGO) #nombre del juego en la ventana
 
 FONDO_UNO = pygame.image.load("assets/images/fondo_primer_escenario.jpg")
+
 FONDO_UNO= pygame.transform.scale(FONDO_UNO, (ANCHO, ALTO))
 
 FONDO_GAME_OVER = pygame.transform.scale(pygame.image.load("assets/images/fondo_game_over.png"), (ANCHO, ALTO))
