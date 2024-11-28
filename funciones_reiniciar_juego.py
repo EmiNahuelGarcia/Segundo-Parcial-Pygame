@@ -6,7 +6,6 @@ def reiniciar_juego():
     # Reiniciar protagonista
     protagonista.update({
         "nombre": "Jugador",
-        "vida": 100,
         "ataque": 10,
         "puntuacion": 0,
         "posicion x": 20,
@@ -99,9 +98,8 @@ def game_over(ventana, fondo_game_over):
         ventana.blit(fondo_game_over, (0, 0))
 
         # Agregamos texto en pantalla
-        fuente = pygame.font.Font(None, 50)
-        texto_perdiste = fuente.render("¡PERDISTE!", True, (ROJO))  
-        texto_reiniciar = fuente.render("Presiona Enter para continuar", True, (ROJO))  
+        texto_perdiste = FUENTE.render("¡PERDISTE!", True, (ROJO))  
+        texto_reiniciar = FUENTE.render("Presiona Enter para continuar", True, (ROJO))  
 
         # Centramos los textos en la pantalla
         ventana.blit(texto_perdiste, (ANCHO // 2 - texto_perdiste.get_width() // 2, ALTO // 2 - 50))
@@ -135,9 +133,8 @@ def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
         ventana.blit(fondo_victoria_primer_escenario, (0, 0))
 
         # Agregamos texto en pantalla
-        fuente = pygame.font.Font(None, 50)
-        texto_perdiste = fuente.render("¡GANASTE EL PRIMER ESCENARIO!", True, (ROJO))  
-        texto_reiniciar = fuente.render("Presiona Enter para continuar", True, (ROJO))  
+        texto_perdiste = FUENTE.render("¡GANASTE EL PRIMER ESCENARIO!", True, (ROJO))  
+        texto_reiniciar = FUENTE.render("Presiona Enter para continuar", True, (ROJO))  
 
         # Centramos los textos en la pantalla
         ventana.blit(texto_perdiste, (ANCHO // 2 - texto_perdiste.get_width() // 2, ALTO // 2 - 50))
@@ -145,3 +142,27 @@ def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
 
         pygame.display.flip()
         reloj.tick(60)
+    
+
+def reiniciar_prota(protagonista):
+    protagonista.update({
+        "nombre": "Jugador",
+        "ataque": 10,
+        "posicion x": 20,
+        "posicion y": 50,  
+        "velocidad x": 5,
+        "velocidad y": 0,
+        "en suelo": True,
+        "fuerza salto": 14,
+        "gravedad": 0.5,
+        "sprite actual": "inactivo",
+        "ultimo disparo": 0,
+        "cooldown disparo": 500
+    })
+    rect_personaje.topleft = (protagonista["posicion x"], protagonista["posicion y"]) # Reinicia rectangulo
+
+
+def reiniciar_vida(protagonista: dict):
+        
+    protagonista["vida"] = 100
+    

@@ -1,6 +1,8 @@
 import pygame
 from configuracion import *
 from funciones_movimientos import *
+from menu import *
+from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_disparar import *
@@ -8,16 +10,19 @@ from funciones_monedas import *
 from funciones_reiniciar_juego import *
 
 
-def primer_escenario(ventana):
+def primer_escenario(ventana, protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
     jugando = True
     mirando_izquierda = False
     mirando_derecha = True 
+    plataformas = inicializar_plataformas()
+    
 
     while jugando:
         if protagonista["vida"] == 0:
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
+            reiniciar_vida(protagonista)
             return "menu"
 
         ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
@@ -45,16 +50,20 @@ def primer_escenario(ventana):
 
         # Si el personaje se mueve a la izquierda
         if teclas[pygame.K_LEFT]:
-            if not mirando_izquierda:  # Solo voltea si actualmente está mirando a la derecha
+            sprite_personaje = pygame.transform.flip(sprite_personaje, True, False)
+            if not mirando_izquierda:
+                # Voltea el sprite inactivo también
+                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = True
                 mirando_derecha = False
 
         # Si el personaje se mueve a la derecha
-        elif teclas[pygame.K_RIGHT]: 
-            if not mirando_derecha:  # Solo voltea si actualmente está mirando a la izquierda
+        if teclas[pygame.K_RIGHT]: 
+            if not mirando_derecha:
+                # Voltea el sprite inactivo también
+                sprites["inactivo"] = pygame.transform.flip(sprites["inactivo"], True, False)
                 mirando_izquierda = False
                 mirando_derecha = True
-
         
         #Dibujar los enemigos
         dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
@@ -63,7 +72,7 @@ def primer_escenario(ventana):
 
         
         
-        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles
@@ -79,10 +88,13 @@ def primer_escenario(ventana):
         verificar_colision_monedas(rect_personaje, monedas, protagonista)
         if comprobar_victoria(monedas):
             victoria_primer_escenario(ventana, FONDO_VICTORIA_PRIMER_ESCENARIO)
+            plataformas.clear()
+            reiniciar_prota(protagonista)
             return "segundo_escenario"
 
         verificar_puntaje(protagonista)
         verificar_vida(protagonista)
+
         
         
 
@@ -107,3 +119,4 @@ def primer_escenario(ventana):
         dibujar_stats(ventana, protagonista)
         pygame.display.flip()
         reloj.tick(60)
+

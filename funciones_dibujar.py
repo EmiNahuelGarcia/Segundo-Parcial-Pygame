@@ -1,5 +1,13 @@
 import pygame
 from configuracion import *
+from funciones_movimientos import *
+from menu import *
+from primer_escenario import *
+from personajes import *
+from plataformas_primer_escenario import *
+from funciones_dibujar import *
+
+
 def dibujar_plataformas(ventana, plataformas, sprite_plataforma):
     """Dibuja las plataformas con el sprite en la ventana."""
     for plataforma in plataformas:
@@ -27,10 +35,9 @@ def dibujar_monedas(ventana, monedas, sprite_moneda):
 def dibujar_stats(ventana, protagonista):
     """Dibuja la vida y el ranking del protagonista en la esquina superior izquierda."""
     # Texto para la vida
-    fuente = pygame.font.Font(None, 50)
-    texto_vida = fuente.render(f"Vida: {protagonista['vida']}", True, ROJO)
-    ventana.blit(texto_vida, (10, 10))  # Dibujar en la posición (10, 10)
+    texto_vida = FUENTE.render(f"{protagonista['vida']}", True, BLANCO)
+    ventana.blit(texto_vida, (110, 37))  # Dibujar en la posición (10, 10)
 
     # Texto para el ranking/puntuación
-    texto_puntuacion = fuente.render(f"Ranking: {protagonista['puntuacion']}", True, ROJO)
-    ventana.blit(texto_puntuacion, (10, 50))  # Dibujar en la posición (10, 50)
+    texto_puntuacion = FUENTE.render(f"{protagonista['puntuacion']}", True, BLANCO)
+    ventana.blit(texto_puntuacion, (320, 37))  # Dibujar en la posición (10, 50)
