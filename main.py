@@ -8,6 +8,8 @@ from primer_escenario import *
 from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
+from funciones_monedas import *
+
 
 ventana = pygame.display.set_mode((ANCHO, ALTO)) #creacion de la ventana
 
@@ -34,6 +36,9 @@ while jugando: #bucle principal del juego
     elif escena_actual == "primer_escenario":
         escena_actual = primer_escenario(ventana, protagonista, sprites, rect_personaje)
 
+    elif escena_actual == "segundo_escenario": #PLACEHOLDER DE SEGUNDO ESCENARIO
+        pass
+    
     elif escena_actual == "salir":
         jugando = False
         
