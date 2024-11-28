@@ -6,6 +6,9 @@ from personajes import *
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_disparar import *
+from funciones_monedas import *
+from funciones_reiniciar_juego import *
+
 
 def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     reloj = pygame.time.Clock()
@@ -14,6 +17,10 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
     mirando_derecha = True 
 
     while jugando:
+        if protagonista["vida"] == 0:
+            game_over(ventana, FONDO_GAME_OVER)
+            reiniciar_juego()
+            return "menu"
 
         ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
         tiempo_actual = pygame.time.get_ticks()  # Obtener el tiempo actual en milisegundos
@@ -27,9 +34,6 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
                 if evento.key == pygame.K_ESCAPE:  # Si presiona ESC, regresa al menú
                     return "menu"
                 
-
-        
-        
         
         teclas = pygame.key.get_pressed()
         #mover_personaje(protagonista, rect_personaje, teclas, sprites)
@@ -58,10 +62,12 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
                 mirando_izquierda = False
                 mirando_derecha = True
         
-        
+        #Dibujar los enemigos
         dibujar_enemigos(ventana, enemigos, rects_enemigos, sprites_enemigos)
+        # Dibujar las monedas
+        dibujar_monedas(ventana, monedas, sprite_moneda)
 
-        # Disparar al presionar la tecla espacio
+        
         
         disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
@@ -74,23 +80,35 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
             disparar_enemigo(enemigo, proyectiles_enemigos, rect_personaje, tiempo_actual)
 
         # Verificar colisiones con el protagonista
-        verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos)
+        verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos, protagonista)
+
+        verificar_colision_monedas(rect_personaje, monedas, protagonista)
+        if comprobar_victoria(monedas):
+            victoria_primer_escenario(ventana, FONDO_VICTORIA_PRIMER_ESCENARIO)
+            return "segundo_escenario"
+
+        verificar_puntaje(protagonista)
+        verificar_vida(protagonista)
+        
+        
 
         # Mover proyectiles enemigos
         mover_proyectiles_enemigos(proyectiles_enemigos)
 
-# Dibujar los proyectiles enemigos en la pantalla
+        # Dibujar los proyectiles enemigos en la pantalla
         dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos)
-        # Dibujar el sprite en la pantalla
-        for proyectil in proyectiles:
-            pygame.draw.rect(ventana, (255, 0, 0), proyectil["rect"], 2)  # Color rojo
+        
+        #dibujar los rects para revisar errores
+        '''for proyectil in proyectiles:
+            pygame.draw.rect(ventana, (ROJO), proyectil["rect"], 2)  # Color rojo
 
-# Dibujar los enemigos
+            # Dibujar los enemigos
         for enemigo_key, enemigo_data in enemigos.items():
-            pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
+            pygame.draw.rect(ventana, (VERDE), rects_enemigos[enemigo_key], 2)  
 
-# Dibujar el protagonista
-            pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
+            # Dibujar el protagonista
+            pygame.draw.rect(ventana, (AZUL), rect_personaje, 2)  '''
         ventana.blit(sprite_personaje, rect_personaje)
+        dibujar_stats(ventana, protagonista)
         pygame.display.flip()
         reloj.tick(60)
