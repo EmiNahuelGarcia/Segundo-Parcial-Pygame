@@ -85,6 +85,8 @@ def primer_escenario(ventana,protagonista, sprites, rect_personaje):
         verificar_colision_monedas(rect_personaje, monedas, protagonista)
         if comprobar_victoria(monedas):
             victoria_primer_escenario(ventana, FONDO_VICTORIA_PRIMER_ESCENARIO)
+            plataformas.clear()
+            reiniciar_prota(protagonista)
             return "segundo_escenario"
 
         verificar_puntaje(protagonista)

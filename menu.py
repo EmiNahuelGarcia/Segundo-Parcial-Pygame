@@ -1,9 +1,12 @@
 import pygame
 import sys
 from configuracion import *
+from funciones_monedas import *
+from primer_escenario import *
+from segundo_escenario import *
 
 
-def menu(ventana):
+def menu(ventana, monedas):
     opciones = ["Jugar", "Salir"]
     opcion_seleccionada = 0  # Índice de la opción seleccionada
 
@@ -30,7 +33,10 @@ def menu(ventana):
                     opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones)
                 if evento.key == pygame.K_RETURN:  # Seleccionar opción
                     if opciones[opcion_seleccionada] == "Jugar":
-                        return "primer_escenario"
+                        if comprobar_victoria(monedas):
+                            return "segundo_escenario"
+                        else:
+                            return "primer_escenario"
                      
                     elif opciones[opcion_seleccionada] == "Salir":
                         pygame.quit()
