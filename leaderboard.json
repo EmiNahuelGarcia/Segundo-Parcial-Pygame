@@ -5,6 +5,10 @@
     },
     {
         "nombre": "EMI",
+        "puntos": 440
+    },
+    {
+        "nombre": "EMI",
         "puntos": 390
     },
     {
@@ -14,9 +18,5 @@
     {
         "nombre": "EMIKUN",
         "puntos": 380
-    },
-    {
-        "nombre": "NEO",
-        "puntos": 195
     }
 ]
