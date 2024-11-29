@@ -71,8 +71,7 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
         dibujar_monedas(ventana, monedas, sprite_moneda)
 
         
-        
-        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles

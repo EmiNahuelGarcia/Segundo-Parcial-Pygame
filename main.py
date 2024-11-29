@@ -10,6 +10,7 @@ from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_monedas import *
 from segundo_escenario import *
+from ranking import *
 
 def main():
 
@@ -28,7 +29,7 @@ def main():
     jugando = True
     while jugando: #bucle principal del juego
         
-        RELOJ.tick(FPS) # control de los fps
+        RELOJ.tick(FPS) # control de los fpsclea
         
         
         if escena_actual == "menu":
@@ -40,6 +41,17 @@ def main():
         elif escena_actual == "segundo_escenario":
             escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje, plataformas)
         
+        elif escena_actual == "opciones":
+            #escena_actual = opciones(ventana)
+            print("opciones")
+        
+        elif escena_actual == "creditos":
+            escena_actual = creditos(ventana)
+        
+        elif escena_actual == "ranking":
+            escena_actual = ranking(ventana)
+            #print("ranking")
+
         elif escena_actual == "salir":
             jugando = False
             
