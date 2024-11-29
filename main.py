@@ -18,6 +18,15 @@ from ranking import *
 
 pygame.mixer.music.play(-1)
 def main():
+    '''
+    Función principal del juego.
+
+    Configura la ventana principal del juego, inicializa los recursos necesarios 
+    y gestiona el bucle principal mediante un while true para cambiar entre diferentes escenas del juego, 
+    como el menú, los escenarios, y otras secciones como opciones, créditos y ranking
+
+    no retorna nada
+    '''
 
     ventana = pygame.display.set_mode((ANCHO, ALTO)) #creacion de la ventana
 
@@ -38,26 +47,26 @@ def main():
         
         
         if escena_actual == "menu":
-            escena_actual = menu(ventana, monedas)
+            escena_actual = menu(ventana, monedas) #ejecuta el menu
 
         elif escena_actual == "primer_escenario":
-            escena_actual = primer_escenario(ventana, protagonista, sprites, rect_personaje)
+            escena_actual = primer_escenario(ventana, protagonista, sprites, rect_personaje) #ejecuta el primer escenario
 
         elif escena_actual == "segundo_escenario":
-            escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje, plataformas)
+            escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje, plataformas) #ejecuta el segundo escenario
         
         elif escena_actual == "opciones":
-            escena_actual = opciones(ventana)
+            escena_actual = opciones(ventana) #ejecuta opciones
             print("opciones")
         
         elif escena_actual == "creditos":
-            escena_actual = creditos(ventana)
+            escena_actual = creditos(ventana) #ejecuta creditos
         
         elif escena_actual == "ranking":
-            escena_actual = ranking(ventana)
+            escena_actual = ranking(ventana) #ejecuta rankings
 
         elif escena_actual == "salir":
-            jugando = False
+            jugando = False #finaliza el bucle
             
             
 
@@ -65,7 +74,7 @@ def main():
         for evento in pygame.event.get(): #captura los eventos del juego
             
             if evento.type == pygame.QUIT: #captura si se cierra el juego
-                jugando = False
+                jugando = False #finaliza el bucle
             
                             
 

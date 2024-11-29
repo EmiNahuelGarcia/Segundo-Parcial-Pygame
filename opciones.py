@@ -3,7 +3,23 @@ import sys
 from configuracion import *
 
 
-def opciones(ventana):
+def opciones(ventana: pygame.surface) -> str:
+    '''
+    Esta función muestra un menú de opciones donde el jugador puede ajustar el volumen del juego.
+    El jugador puede elegir entre tres opciones:
+    1. Apagar sonidos.
+    2. Establecer volumen máximo.
+    3. Reducir volumen a la mitad.
+    La función ajusta el volumen de la música y los efectos de sonido según la opción seleccionada.
+
+    Cuando el jugador selecciona una opción, la función aplica el cambio de volumen correspondiente
+    y regresa al menú principal.
+
+    Returns:
+    str: Devuelve "menu" para regresar al menú principal después de que el jugador haya hecho su selección.
+    
+    '''
+
     seleccion = 0  # Aseguramos que la variable 'seleccion' está inicializada al principio
     ejecutando_opciones = True
     while ejecutando_opciones:

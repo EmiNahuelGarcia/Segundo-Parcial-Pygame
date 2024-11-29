@@ -11,21 +11,34 @@ from funciones_reiniciar_juego import *
 from boss_final import *
 
 
-def primer_escenario(ventana, protagonista, sprites, rect_personaje):
-    reloj = pygame.time.Clock()
-    jugando = True
-    mirando_izquierda = False
+def primer_escenario(ventana: pygame.surface, protagonista: dict, sprites: list, rect_personaje: pygame.rect) -> str:
+    """
+    Lógica y renderizado del primer escenario del juego.
+
+    Esta función gestiona todo lo relacionado con el primer escenario, incluyendo el manejo de eventos,
+    movimiento del protagonista, dibujar los escenarios, colisiones con enemigos, proyectiles y monedas, así como la verificación de la victoria
+    y el manejo de la vida y puntuación del jugador. Si el jugador pierde, se muestra la pantalla de Game Over, y si gana,
+    se pasa al segundo escenario.
+
+    Returns:
+    str: Devuelve el nombre del próximo escenario si el jugador gana o pierde, o "salir" si el jugador cierra la ventana.
+
+    """
+
+    reloj = pygame.time.Clock() 
+    jugando = True #inicializa el bucle
+    mirando_izquierda = False #gestion de sprites y disparos protagonista
     mirando_derecha = True 
-    plataformas = inicializar_plataformas()
+    plataformas = inicializar_plataformas() #creacion de plataformas del primer escenario
     
 
     while jugando:
         if protagonista["vida"] == 0:
-            pygame.mixer.music.stop()
+            pygame.mixer.music.stop() #para la musica
             SONIDO_DERROTA.play()
-            game_over(ventana, FONDO_GAME_OVER)
+            game_over(ventana, FONDO_GAME_OVER) #pantalla de derrota
             reiniciar_juego()
-            reiniciar_vida(protagonista)
+            reiniciar_vida(protagonista) #funciones donde reinicia el juego
             pygame.mixer.music.play(-1)
             return "menu"
 
@@ -42,13 +55,13 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
                     return "menu"
                 
         
-        teclas = pygame.key.get_pressed()
-        #mover_personaje(protagonista, rect_personaje, teclas, sprites)
+        teclas = pygame.key.get_pressed() #toma las teclas presionadas
+        
         aplicar_gravedad(protagonista, rect_personaje, plataformas)
         dibujar_plataformas(ventana, plataformas, sprite_plataforma)
 
         mover_personaje(protagonista, rect_personaje, teclas, sprites)
-        '''ventana.blit(sprites[protagonista["sprite actual"]], rect_personaje)  # Dibujar el sprite actual'''
+        
         # Obtener el sprite actual
         sprite_personaje = sprites[protagonista["sprite actual"]]
 
@@ -87,8 +100,8 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
         # Verificar colisiones con el protagonista
         verificar_colisiones_proyectiles(proyectiles, rect_personaje, enemigos, rects_enemigos, protagonista)
 
-        verificar_colision_monedas(rect_personaje, monedas, protagonista)
-        if comprobar_victoria(monedas):
+        verificar_colision_monedas(rect_personaje, monedas, protagonista) #verificacion para recolectar monedas
+        if comprobar_victoria(monedas): #verificar si todas las monedas estan capturadas
             pygame.mixer.music.stop()
             SONIDO_VICTORIA.play()
             victoria_primer_escenario(ventana, FONDO_VICTORIA)
@@ -96,10 +109,10 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
             pygame.mixer.music.play(-1)
             reiniciar_prota(protagonista)
             
-            return "segundo_escenario"
+            return "segundo_escenario" #se pasa al segundo escenario
 
-        verificar_puntaje(protagonista)
-        verificar_vida(protagonista)
+        verificar_puntaje(protagonista) 
+        verificar_vida(protagonista) #verificaciones de los stats del protagonista
 
         
         
@@ -110,19 +123,9 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
         # Dibujar los proyectiles enemigos en la pantalla
         dibujar_proyectiles_enemigos(ventana, proyectiles_enemigos)
         
-        #dibujar los rects para revisar errores
-        '''for proyectil in proyectiles:
-            pygame.draw.rect(ventana, (ROJO), proyectil["rect"], 2)  # Color rojo
 
-        # Dibujar los enemigos
-        for enemigo_key, enemigo_data in enemigos.items():
-            pygame.draw.rect(ventana, (0, 255, 0), rects_enemigos[enemigo_key], 2)  # Color verde
-            # Dibujar el protagonista
-            pygame.draw.rect(ventana, (0, 0, 255), rect_personaje, 2)  # Color azul
- '''
-
-        ventana.blit(sprite_personaje, rect_personaje)
-        dibujar_stats(ventana, protagonista)
+        ventana.blit(sprite_personaje, rect_personaje) #blit del protagonista y su rectangulo
+        dibujar_stats(ventana, protagonista) #visualizacion de los stats del prota
         pygame.display.flip()
         reloj.tick(60)
 

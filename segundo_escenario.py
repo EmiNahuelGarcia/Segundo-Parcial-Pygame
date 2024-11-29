@@ -14,7 +14,22 @@ from boss_final import *
 
 
 
-def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataformas):
+def segundo_escenario(ventana: pygame.Surface, protagonista: dict, sprites: list, rect_personaje: pygame.Rect, plataformas: list) -> str:
+    """
+    Lógica y renderizado del segundo escenario del juego.
+
+    Esta función gestiona el segundo nivel del juego, incluyendo el movimiento del protagonista, 
+    las interacciones con plataformas, enemigos, proyectiles y la lógica de victoria o derrota. 
+    También administra los eventos clave, como el retorno al menú o la salida del juego.
+    El escenario termina si la vida del protagonista o del jefe llega a 0
+
+    Returns:
+    str: Devuelve el nombre de la siguiente escena a ejecutar:
+    - "menu" si el jugador regresa al menú o completa el escenario.
+    - "salir" si el jugador cierra el juego. 
+    
+    """
+
     reloj = pygame.time.Clock()
     jugando = True
     mirando_izquierda = False

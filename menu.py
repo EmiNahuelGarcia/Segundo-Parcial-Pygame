@@ -5,9 +5,28 @@ from funciones_monedas import *
 from primer_escenario import *
 from segundo_escenario import *
 from creditos import *
+from ranking import *
 
 
-def menu(ventana, monedas):
+def menu(ventana: pygame.surface, monedas: list) -> str:
+    '''
+    Muestra el menú principal del juego y gestiona la navegación entre opciones.
+
+    Esta función despliega un menú con varias opciones, como jugar, acceder a las opciones,
+    ver los créditos, ver el ranking, y salir del juego. El jugador puede navegar por las
+    opciones usando las teclas de flecha arriba y abajo, y seleccionar una opción con la tecla Enter.
+
+    Args:
+    ventana (pygame.Surface): La ventana del juego donde se dibuja el menú.
+    monedas (list): Una lista que contiene el estado de las monedas en el juego, utilizada para verificar si el jugador
+    ha ganado el juego antes de comenzar el segundo escenario.
+
+    Returns:
+    str: El nombre del escenario o pantalla que se debe cargar a continuación. Puede devolver "primer_escenario",
+    "segundo_escenario", "opciones", "creditos", "ranking" o "salir".
+    
+    '''
+    
     seleccion = 0  # Inicializa la selección
     ejecutando_menu = True
     while ejecutando_menu:

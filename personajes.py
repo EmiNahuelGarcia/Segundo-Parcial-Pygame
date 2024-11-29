@@ -100,7 +100,7 @@ for enemigo_key, enemigo_data in enemigos.items():
 
 ancho_fuego = 50
 alto_fuego = 50
-fuego = pygame.transform.scale(pygame.image.load("assets/images/fuego_segundo_escenario.png"),(ancho_fuego, alto_fuego))
+fuego = pygame.transform.scale(pygame.image.load("assets/images/fuego_segundo_escenario.png"),(ancho_fuego, alto_fuego)) #carga y reescalado de los fuegos obstaculos del segundo escenario
 
 
 
