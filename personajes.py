@@ -16,7 +16,7 @@ protagonista = {
     "sprite actual" : "inactivo",
     "ultimo disparo": 0,  # control de disparos
     "cooldown disparo": 500,  # 500 ms entre disparos
-    "vista": "derecha"
+    
 }
 
 
@@ -38,7 +38,7 @@ enemigos = {
     "enemigo_1": {
         "tipo": "pistola",  # Tipo de arma
         "sprite": "pistola_izquierda",  # Dirección del sprite
-        "salud": 100,
+        "salud": 50,
         "posicion x": 200,
         "posicion y": 320,
         "direccion": "izquierda",
@@ -48,7 +48,7 @@ enemigos = {
     "enemigo_2": {
         "tipo": "pistola",
         "sprite": "pistola_derecha",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 350,
         "posicion y": 220,
         "direccion": "derecha",
@@ -58,7 +58,7 @@ enemigos = {
     "enemigo_3": {
         "tipo": "ametralladora",
         "sprite": "ametralladora_izquierda",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 700,
         "posicion y": 650,
         "direccion": "derecha",
@@ -68,7 +68,7 @@ enemigos = {
     "enemigo_4": {
         "tipo": "ametralladora",
         "sprite": "ametralladora_derecha",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 620,
         "posicion y": 105,
         "direccion": "derecha",

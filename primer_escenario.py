@@ -8,6 +8,7 @@ from funciones_dibujar import *
 from funciones_disparar import *
 from funciones_monedas import *
 from funciones_reiniciar_juego import *
+from boss_final import *
 
 
 def primer_escenario(ventana, protagonista, sprites, rect_personaje):
@@ -70,7 +71,7 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
         # Dibujar las monedas
         dibujar_monedas(ventana, monedas, sprite_moneda) 
         
-        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles

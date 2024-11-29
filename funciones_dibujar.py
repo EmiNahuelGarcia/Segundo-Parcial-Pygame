@@ -7,45 +7,6 @@ def dibujar_plataformas(ventana, plataformas, sprite_plataforma):
         ventana.blit(sprite_plataforma, plataforma)
 
 
-def handle_saltos(ciclo_saltos):
-    if ciclo_saltos < 2:
-        return 0
-    elif ciclo_saltos < 4:
-        return 1
-    else:
-        return 2
-
-def dibujar_jefe(ventana, jefe, sprite_jefe, rect_jefe, tiempo):
-    sprite_jefe_volteado = {
-        "inactivo": pygame.transform.flip(sprite_jefe["inactivo"], True, False),
-        "ataque_uno": pygame.transform.flip(sprite_jefe["ataque_uno"], True, False),
-        "ataque_dos": pygame.transform.flip(sprite_jefe["ataque_dos"], True, False),
-    }
-
-    coordenadas = [(800, 580), (500, 450), (100, 580)]
-
-    ciclo_saltos = (tiempo/1000) % 6
-    ciclo_tiempo = (tiempo/1000) % 2  # 2 segundos por ciclo
-
-    i = handle_saltos(ciclo_saltos)
-
-    if ciclo_tiempo < 1:
-        ventana.blit(sprite_jefe_volteado["inactivo"], coordenadas[i]) # 0 a 1
-    else:
-        if ciclo_tiempo < 1.5:
-            ventana.blit(sprite_jefe_volteado["ataque_uno"], coordenadas[i]) #1 a 1.5
-        else:
-            ventana.blit(sprite_jefe["ataque_dos"], coordenadas[i]) #1.5 a 2
-    
-
-    
-    
-
-    # 1 segundo inactivo
-    # 1 segundo rotando entre ataque uno y ataque dos
-    # ir al lado contrario
-
-
 
     
 

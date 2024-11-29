@@ -11,6 +11,7 @@ from funciones_dibujar import *
 from funciones_monedas import *
 from segundo_escenario import *
 from ranking import *
+from boss_final import *
 
 def main():
 

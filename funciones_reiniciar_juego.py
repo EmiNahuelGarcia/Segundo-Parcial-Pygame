@@ -26,7 +26,7 @@ def reiniciar_juego():
     "enemigo_1": {
         "tipo": "pistola",  # Tipo de arma
         "sprite": "pistola_izquierda",  # Dirección del sprite
-        "salud": 100,
+        "salud": 50,
         "posicion x": 200,
         "posicion y": 320,
         "direccion": "izquierda",
@@ -36,7 +36,7 @@ def reiniciar_juego():
     "enemigo_2": {
         "tipo": "pistola",
         "sprite": "pistola_derecha",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 350,
         "posicion y": 220,
         "direccion": "derecha",
@@ -46,7 +46,7 @@ def reiniciar_juego():
     "enemigo_3": {
         "tipo": "ametralladora",
         "sprite": "ametralladora_izquierda",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 700,
         "posicion y": 650,
         "direccion": "derecha",
@@ -56,7 +56,7 @@ def reiniciar_juego():
     "enemigo_4": {
         "tipo": "ametralladora",
         "sprite": "ametralladora_derecha",
-        "salud": 100,
+        "salud": 50,
         "posicion x": 620,
         "posicion y": 105,
         "direccion": "derecha",
@@ -77,9 +77,21 @@ def reiniciar_juego():
     # Reiniciar monedas
     for moneda in monedas:
         moneda["recogida"] = False
-    
-    
 
+   
+    
+    
+def reiniciar_jefe(jefe: dict):
+    """Reinicia las propiedades del jefe al inicio de la partida usando update."""
+    jefe.update({
+        "vida": 200,              
+        "vida maxima": 200,    
+        "ataque": 30,              
+        "posicion x": 900,        
+        "posicion y": 650,         
+        "ultimo_ataque": 0,        
+        "estado": "inactivo"       
+    })
 
 def game_over(ventana, fondo_game_over):
     reloj = pygame.time.Clock()

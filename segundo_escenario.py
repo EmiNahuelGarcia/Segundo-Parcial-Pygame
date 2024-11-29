@@ -9,6 +9,7 @@ from funciones_disparar import *
 from funciones_monedas import *
 from funciones_reiniciar_juego import *
 from plataformas_segundo_escenario import *
+from boss_final import *
 
 
 
@@ -25,6 +26,7 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
             reiniciar_vida(protagonista)
+            reiniciar_jefe(jefe)
             return "menu"
         
         ventana.blit(FONDO_DOS, (0, 0))  # Fondo del segundo escenario
@@ -67,13 +69,25 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
         aplicar_gravedad(protagonista, rect_personaje, plataformas_segundo_escenario)
         dibujar_plataformas(ventana, plataformas_segundo_escenario , sprite_plataforma)  # Asegúrate de que las plataformas estén correctas
         
-        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles
         mover_proyectiles(proyectiles)
 
         manejar_fuegos(fuegos_activos, ventana, protagonista, rect_personaje)
+
+        
+
+        
+
+        # Dibujar al jefe
+        if jefe["estado"] != "muerto":
+            dibujar_jefe(ventana, tiempo_actual)
+        dibujar_bolas_fuego(ventana)
+        mover_bolas_fuego()
+        verificar_colisiones_bolas_fuego_con_protagonista(protagonista, proyectiles_jefe, rect_personaje)
+        verificar_colisiones_con_jefe(proyectiles, jefe, rect_jefe)
 
 
         ventana.blit(sprite_personaje, rect_personaje)  # Asegúrate de que el sprite correcto se dibuje

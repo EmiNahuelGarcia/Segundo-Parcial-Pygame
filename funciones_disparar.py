@@ -14,27 +14,26 @@ proyectil_img = pygame.Surface((10, 5))
 proyectil_img.fill((ROJO))  # Color rojo para el proyectil
 
 
-def disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual):
+def disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual):
     """Crear un proyectil que se mueve en la dirección del personaje."""
-
+    
     # Verifica si se presiona la tecla de disparo y ha pasado el cooldown
     if teclas[pygame.K_x] and tiempo_actual - protagonista["ultimo disparo"] >= protagonista["cooldown disparo"]:
         # Crear un proyectil en la dirección correcta
         proyectil_rect = proyectil_img.get_rect()
         
-        if protagonista["vista"] == "derecha":
+        if mirando_derecha:
             proyectil_rect.x = rect_personaje.right  # Aparece al lado derecho del personaje
         else:
             proyectil_rect.x = rect_personaje.left - proyectil_rect.width  # Aparece al lado izquierdo del personaje
 
         proyectil_rect.y = rect_personaje.centery + 10  # Centrado verticalmente
 
-        direccion = "derecha" if protagonista["vista"] == "derecha" else "izquierda"
+        direccion = "derecha" if mirando_derecha else "izquierda"
         proyectiles.append({"rect": proyectil_rect, "direccion": direccion})
 
         # Actualiza el tiempo del último disparo
         protagonista["ultimo disparo"] = tiempo_actual
-
     
     
     
@@ -171,5 +170,30 @@ def manejar_fuegos(fuegos_activos, ventana, protagonista, rect_protagonista):
     while len(fuegos_activos) < 4:
         fuegos_activos.append(generar_fuego())
 
+def verificar_colisiones_bolas_fuego_con_protagonista(protagonista, proyectiles_jefe, rect_personaje):
+    """Verificar si las bolas de fuego del jefe golpean al protagonista."""
+    for bola in proyectiles_jefe[:]:
 
+        if bola["rect"].colliderect(rect_personaje):
+            protagonista["vida"] = max(protagonista["vida"] - 10, 0) 
+            protagonista["puntuacion"] = max(protagonista["puntuacion"] - 5, 0)
+            proyectiles_jefe.remove(bola)
+        
+        
 
+def verificar_colisiones_con_jefe(proyectiles, jefe, rect_jefe):
+    """Verifica si los proyectiles disparados por el jugador golpean al jefe y le reducen la vida."""
+    
+    for proyectil in proyectiles[:]:  # Itera sobre una copia de la lista de proyectiles
+        # Verificar colisión con el rectángulo del jefe 
+        if proyectil["rect"].colliderect(rect_jefe):  # Si el proyectil colide con el jefe
+            jefe["vida"] = max(jefe["vida"] - 10, 0)  # Reducir vida del jefe
+            print(f"El jefe recibió daño, vida restante: {jefe['vida']}")
+
+            # Eliminar el proyectil tras la colisión
+            proyectiles.remove(proyectil)
+            
+            if jefe["vida"] <= 0:
+                print("El jefe ha sido derrotado.")
+                jefe["estado"] = "muerto"  # Cambiar el estado del jefe a "muerto"
+                break
