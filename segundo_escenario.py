@@ -23,10 +23,13 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
 
     while jugando:
         if protagonista["vida"] == 0:
+            pygame.mixer.music.stop()
+            SONIDO_DERROTA.play()
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
             reiniciar_vida(protagonista)
             reiniciar_jefe(jefe)
+            pygame.mixer.music.play(-1)
             return "menu"
         
         ventana.blit(FONDO_DOS, (0, 0))  # Fondo del segundo escenario
@@ -88,6 +91,20 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
         mover_bolas_fuego()
         verificar_colisiones_bolas_fuego_con_protagonista(protagonista, proyectiles_jefe, rect_personaje)
         verificar_colisiones_con_jefe(proyectiles, jefe, rect_jefe)
+        
+        if comprobar_victoria_juego(jefe):
+            pygame.mixer.music.stop()
+            SONIDO_VICTORIA.play()
+            victoria_segundo_escenario(ventana, FONDO_VICTORIA, protagonista)
+            plataformas.clear()
+            reiniciar_prota(protagonista)
+            reiniciar_juego()
+            reiniciar_vida(protagonista)
+            reiniciar_jefe(jefe)
+            pygame.mixer.music.play(-1)
+            return "menu"
+
+            
 
 
         ventana.blit(sprite_personaje, rect_personaje)  # Asegúrate de que el sprite correcto se dibuje

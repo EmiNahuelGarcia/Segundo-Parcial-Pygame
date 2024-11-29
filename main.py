@@ -1,5 +1,6 @@
 import pygame
 pygame.init()
+pygame.mixer.init()
 import random
 from configuracion import *
 from funciones_movimientos import *
@@ -12,7 +13,10 @@ from funciones_monedas import *
 from segundo_escenario import *
 from ranking import *
 from boss_final import *
+from opciones import *
+from ranking import *
 
+pygame.mixer.music.play(-1)
 def main():
 
     ventana = pygame.display.set_mode((ANCHO, ALTO)) #creacion de la ventana
@@ -30,7 +34,7 @@ def main():
     jugando = True
     while jugando: #bucle principal del juego
         
-        RELOJ.tick(FPS) # control de los fpsclea
+        RELOJ.tick(FPS) # control de los fpsclea 
         
         
         if escena_actual == "menu":
@@ -43,7 +47,7 @@ def main():
             escena_actual = segundo_escenario(ventana,protagonista, sprites, rect_personaje, plataformas)
         
         elif escena_actual == "opciones":
-            #escena_actual = opciones(ventana)
+            escena_actual = opciones(ventana)
             print("opciones")
         
         elif escena_actual == "creditos":
@@ -51,7 +55,6 @@ def main():
         
         elif escena_actual == "ranking":
             escena_actual = ranking(ventana)
-            #print("ranking")
 
         elif escena_actual == "salir":
             jugando = False

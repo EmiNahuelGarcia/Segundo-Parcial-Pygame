@@ -21,9 +21,12 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
 
     while jugando:
         if protagonista["vida"] == 0:
+            pygame.mixer.music.stop()
+            SONIDO_DERROTA.play()
             game_over(ventana, FONDO_GAME_OVER)
             reiniciar_juego()
             reiniciar_vida(protagonista)
+            pygame.mixer.music.play(-1)
             return "menu"
 
         ventana.blit(FONDO_UNO, (0, 0))  # Fondo del escenario
@@ -86,9 +89,13 @@ def primer_escenario(ventana, protagonista, sprites, rect_personaje):
 
         verificar_colision_monedas(rect_personaje, monedas, protagonista)
         if comprobar_victoria(monedas):
-            victoria_primer_escenario(ventana, FONDO_VICTORIA_PRIMER_ESCENARIO)
+            pygame.mixer.music.stop()
+            SONIDO_VICTORIA.play()
+            victoria_primer_escenario(ventana, FONDO_VICTORIA)
             plataformas.clear()
+            pygame.mixer.music.play(-1)
             reiniciar_prota(protagonista)
+            
             return "segundo_escenario"
 
         verificar_puntaje(protagonista)

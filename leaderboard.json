@@ -1,8 +1,22 @@
-{
-    "leaderboard": [
-        {
-            "nombre": "Darth Vader",
-            "puntos": 1000
-        }
-    ]
-}
+[
+    {
+        "nombre": "SOUTHBAD",
+        "puntos": 575
+    },
+    {
+        "nombre": "EMI",
+        "puntos": 390
+    },
+    {
+        "nombre": "EMIKUN",
+        "puntos": 380
+    },
+    {
+        "nombre": "NEO",
+        "puntos": 195
+    },
+    {
+        "nombre": "ESPAR",
+        "puntos": 185
+    }
+]

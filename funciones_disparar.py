@@ -19,6 +19,7 @@ def disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista,
     
     # Verifica si se presiona la tecla de disparo y ha pasado el cooldown
     if teclas[pygame.K_x] and tiempo_actual - protagonista["ultimo disparo"] >= protagonista["cooldown disparo"]:
+        SONIDO_DISPARO_PROTA.play()
         # Crear un proyectil en la dirección correcta
         proyectil_rect = proyectil_img.get_rect()
         
@@ -62,6 +63,7 @@ def disparar_enemigo(enemigo, proyectiles_enemigos, rect_personaje, tiempo_actua
     """Hace que el enemigo dispare si está alineado verticalmente con el protagonista y el cooldown ha pasado."""
     if abs(rect_personaje.top - enemigo["posicion y"]) <= 200:  # Margen de alineación en píxeles
         if tiempo_actual - enemigo["ultimo disparo"] >= enemigo["cooldown disparo"]:
+            SONIDO_DISPARO_ENEMIGO.play()
             proyectil_rect = proyectil_img.get_rect()  # Crea el rectángulo del proyectil
             print("Enemigo dispara")
             
@@ -188,6 +190,7 @@ def verificar_colisiones_con_jefe(proyectiles, jefe, rect_jefe):
         # Verificar colisión con el rectángulo del jefe 
         if proyectil["rect"].colliderect(rect_jefe):  # Si el proyectil colide con el jefe
             jefe["vida"] = max(jefe["vida"] - 10, 0)  # Reducir vida del jefe
+            protagonista["puntuacion"] += 10
             print(f"El jefe recibió daño, vida restante: {jefe['vida']}")
 
             # Eliminar el proyectil tras la colisión

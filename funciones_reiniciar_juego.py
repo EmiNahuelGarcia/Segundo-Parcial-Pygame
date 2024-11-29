@@ -1,6 +1,7 @@
 from personajes import *
 from funciones_monedas import *
 from configuracion import *
+from ranking import *
 
 def reiniciar_juego():
     # Reiniciar protagonista
@@ -128,7 +129,7 @@ def comprobar_victoria(monedas):
     return True  # Es true si todas las monedas estan como recogidas"
 
 
-def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
+def victoria_primer_escenario(ventana, fondo_victoria):
     reloj = pygame.time.Clock()
     mostrar_pantalla = True
 
@@ -142,7 +143,7 @@ def victoria_primer_escenario(ventana, fondo_victoria_primer_escenario):
                     mostrar_pantalla = False  # Salimos de esta pantalla y volvemos al menú
 
         # Dibujamos el fondo de Game Over
-        ventana.blit(fondo_victoria_primer_escenario, (0, 0))
+        ventana.blit(fondo_victoria, (0, 0))
 
         # Agregamos texto en pantalla
         texto_perdiste = FUENTE.render("¡GANASTE EL PRIMER ESCENARIO!", True, (ROJO))  
@@ -178,3 +179,65 @@ def reiniciar_vida(protagonista: dict):
         
     protagonista["vida"] = 100
     
+def comprobar_victoria_juego(jefe):
+    if jefe["estado"] == "muerto":
+        return True
+        
+
+
+def victoria_segundo_escenario(ventana, fondo_victoria, protagonista):
+    reloj = pygame.time.Clock()
+    mostrar_pantalla = True
+    nombre_usuario = ""
+    jugador_finalizado = False
+
+    # Cargar o inicializar el leaderboard
+    try:
+        with open("leaderboard.json", "r") as archivo:
+            leaderboard = json.load(archivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        leaderboard = []
+
+    while mostrar_pantalla:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_RETURN:  # Si presiona Enter
+                    if jugador_finalizado:
+                        mostrar_pantalla = False  # Sale al Menu
+                    else:
+                        # Guardamos el nombre del jugador y la puntuación
+                        nombre_final = nombre_usuario if nombre_usuario else "Jugador Anónimo"
+                        puntuacion = protagonista.get("puntuacion", 0)  
+                        leaderboard.append({"nombre": nombre_final, "puntos": puntuacion})
+
+                        # Ordenamos el leaderboard y guardamos solo el Top 5
+                        leaderboard = sorted(leaderboard, key=lambda x: x["puntos"], reverse=True)[:5]
+                        with open("leaderboard.json", "w") as archivo:
+                            json.dump(leaderboard, archivo, indent=4)
+                        jugador_finalizado = True
+
+                elif evento.key == pygame.K_BACKSPACE:  # Borrar último carácter
+                    nombre_usuario = nombre_usuario[:-1]
+                elif evento.unicode.isalpha() and len(nombre_usuario) < 15:  # Letras (máximo 15 caracteres)
+                    nombre_usuario += evento.unicode.upper()
+
+        # Dibujamos el fondo
+        ventana.blit(fondo_victoria, (0, 0))
+
+        # Dibujamos los textos
+        texto_victoria = FUENTE.render("¡GANASTE EL JUEGO!", True, ROJO)
+        texto_ingresar_nombre = FUENTE.render("Ingresa tu nombre:", True, ROJO)
+        texto_nombre = FUENTE.render(nombre_usuario, True, BLANCO)
+        texto_reiniciar = FUENTE.render("Presiona Enter para continuar", True, ROJO)
+
+        ventana.blit(texto_victoria, (ANCHO // 2 - texto_victoria.get_width() // 2, ALTO // 2 - 100))
+        ventana.blit(texto_ingresar_nombre, (ANCHO // 2 - texto_ingresar_nombre.get_width() // 2, ALTO // 2 - 50))
+        ventana.blit(texto_nombre, (ANCHO // 2 - texto_nombre.get_width() // 2, ALTO // 2))
+        ventana.blit(texto_reiniciar, (ANCHO // 2 - texto_reiniciar.get_width() // 2, ALTO // 2 + 100))
+
+        pygame.display.flip()
+        reloj.tick(60)

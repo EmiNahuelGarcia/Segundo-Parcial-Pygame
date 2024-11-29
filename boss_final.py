@@ -1,4 +1,5 @@
 import pygame
+from configuracion import *
 
 bola_fuego_mickey = pygame.transform.scale(pygame.image.load("assets/images/bola_fuego_mickey.png"), (80, 80))
 sprite_inactivo = pygame.transform.scale(pygame.image.load("assets/images/mickey_inactivo.png"), (120, 120))
@@ -53,6 +54,8 @@ def atacar_jefe(tiempo_actual, proyectiles_jefe):
 
 def disparar_bola_fuego():
     """Crear un proyectil de bola de fuego disparado por el jefe."""
+    if not pygame.mixer.get_busy():  # Verifica si no se está reproduciendo otro sonido
+                SONIDO_BOLA.play()
     bola_fuego_rect = bola_fuego_mickey.get_rect()
     bola_fuego_rect.x = jefe["posicion x"] + 40  # Ajusta según la posición del jefe
     bola_fuego_rect.y = jefe["posicion y"] + 10  # Ajusta según la altura del jefe
@@ -64,6 +67,7 @@ rect_jefe = pygame.Rect(jefe["posicion x"], jefe["posicion y"], 60, 60)  # Tama�
 def dibujar_jefe(ventana, tiempo_actual):
     """Dibuja el sprite del jefe y maneja su ataque."""
     # Llamamos a la función de ataque cada frame
+    
     atacar_jefe(tiempo_actual, proyectiles_jefe)
     
     if jefe["estado"] == "muerto":
@@ -71,8 +75,7 @@ def dibujar_jefe(ventana, tiempo_actual):
     # Dibujar el sprite 
     ventana.blit(sprites_jefe[jefe["estado"]], (jefe["posicion x"], jefe["posicion y"]))
 
-    # Dibujar el rectángulo de colisión (puedes ocultarlo, es solo para detección de colisiones)
-    pygame.draw.rect(ventana, (255, 0, 0), rect_jefe, 2)  # Rectángulo rojo (solo para debug, opcional)
+    
 
 def mover_bolas_fuego():
     """Mover las bolas de fuego disparadas por el jefe."""

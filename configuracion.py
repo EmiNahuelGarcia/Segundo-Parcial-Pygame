@@ -24,7 +24,7 @@ FONDO_DOS = pygame.transform.scale(pygame.image.load("assets/images/fondo_segund
 
 FONDO_GAME_OVER = pygame.transform.scale(pygame.image.load("assets/images/fondo_game_over.jpg"), (ANCHO, ALTO))
 
-FONDO_VICTORIA_PRIMER_ESCENARIO = pygame.transform.scale(pygame.image.load("assets/images/fondo_victoria_primer_escenario.jpg"), (ANCHO, ALTO))
+FONDO_VICTORIA = pygame.transform.scale(pygame.image.load("assets/images/fondo_victoria_primer_escenario.jpg"), (ANCHO, ALTO))
 
 
 darth_vader = pygame.image.load("assets/images/darth_vader.png")
@@ -55,3 +55,16 @@ FONDO_MENU = pygame.transform.scale(pygame.image.load("assets/images/menu_fondo.
 ancho_fuego = 50
 alto_fuego = 50
 fuego = pygame.transform.scale(pygame.image.load("assets/images/fuego_segundo_escenario.png"),(ancho_fuego, alto_fuego))
+
+SONIDO_DISPARO_PROTA = pygame.mixer.Sound('assets/audios/sonido_disparo.wav')
+
+SONIDO_DISPARO_ENEMIGO = pygame.mixer.Sound('assets/audios/sonido_disparo_enemigo.wav')
+
+SONIDO_BOLA = pygame.mixer.Sound('assets/audios/sonido_bola.mp3')
+
+SONIDO_VICTORIA = pygame.mixer.Sound('assets/audios/sonido_victoria.wav')
+
+SONIDO_DERROTA = pygame.mixer.Sound('assets/audios/sonido_derrota.wav')
+
+
+pygame.mixer.music.load('assets/audios/sonido_fondo.wav')
