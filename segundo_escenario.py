@@ -3,7 +3,6 @@ from configuracion import *
 from funciones_movimientos import *
 from menu import *
 from personajes import *
-from personajes import mickey_mouse
 from plataformas_primer_escenario import *
 from funciones_dibujar import *
 from funciones_disparar import *
@@ -11,8 +10,8 @@ from funciones_monedas import *
 from funciones_reiniciar_juego import *
 from plataformas_segundo_escenario import *
 
-def victoria_segundo_escenario():
-    return True if mickey_mouse["vida"] <= 0 and protagonista["vida"] > 0 else False
+
+
 
 def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataformas):
     reloj = pygame.time.Clock()
@@ -64,7 +63,7 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
                 mirando_derecha = True
 
         # Lógica de movimiento y otras acciones
-        dibujar_jefe(ventana, mickey_mouse, sprites_mickey_mouse, rect_mickey_mouse, pygame.time.get_ticks())
+        
         aplicar_gravedad(protagonista, rect_personaje, plataformas_segundo_escenario)
         dibujar_plataformas(ventana, plataformas_segundo_escenario , sprite_plataforma)  # Asegúrate de que las plataformas estén correctas
         

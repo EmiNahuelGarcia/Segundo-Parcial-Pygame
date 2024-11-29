@@ -173,8 +173,3 @@ def manejar_fuegos(fuegos_activos, ventana, protagonista, rect_protagonista):
 
 
 
-def verificar_vida(protagonista : dict):
-
-    if protagonista["vida"] <= 0:
-        protagonista["vida"] = 0
-        return protagonista
