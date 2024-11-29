@@ -95,13 +95,25 @@ for enemigo_key, enemigo_data in enemigos.items():
 
 
 sprites_mickey_mouse = {
-    "inactivo": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_inactivo.png"), (120, 150)),
-    "ataque_uno": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_ataque_uno.png"), (200, 170)),
-    "ataque_dos": pygame.transform.scale(pygame.image.load("assets/images/mickey_mouse_ataque_dos.png"), (200, 170)),
+    "inactivo": pygame.transform.scale(pygame.image.load("assets/images/mickey_inactivo.png"), (120, 150)),
+    "ataque_uno": pygame.transform.scale(pygame.image.load("assets/images/mickey_ataque_uno.png"), (200, 170)),
+    "ataque_dos": pygame.transform.scale(pygame.image.load("assets/images/mickey_ataque_dos.png"), (200, 170)),
 }
 
 mickey_mouse = {
     "vida": 200,
     "vida maxima": 200,
-    "ataque": 30
-} # Implementar enemigo final
+    "ataque": 30,
+    "direccion": "izquierda",
+    "posicion_x": 800,
+    "posicion_y": 50,
+}
+
+rect_mickey_mouse = sprites_mickey_mouse["inactivo"].get_rect()
+
+
+
+
+ancho_fuego = 50
+alto_fuego = 50
+fuego = pygame.transform.scale(pygame.image.load("assets/images/fuego_segundo_escenario.png"),(ancho_fuego, alto_fuego))

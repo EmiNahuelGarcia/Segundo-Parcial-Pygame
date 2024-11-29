@@ -9,7 +9,6 @@ from creditos import *
 
 def menu(ventana, monedas):
     seleccion = 0  # Inicializa la selección
-    fuente = pygame.font.Font(None, 45)
     ejecutando_menu = True
     while ejecutando_menu:
         # Dibujar el fondo
@@ -20,7 +19,7 @@ def menu(ventana, monedas):
 
         # Dibujar las opciones del menú
         for i, opcion in enumerate(OPCIONES):
-            etiqueta = fuente.render(opcion, True, VIOLETA if i == seleccion else BLANCO)
+            etiqueta = FUENTE.render(opcion, True, VIOLETA if i == seleccion else BLANCO)
             ventana.blit(etiqueta, (ANCHO // 2 - etiqueta.get_width() // 2, OFFSET_VERTICAL + i * ESPACIADO_VERTICAL))
         
         # Actualizar la pantalla

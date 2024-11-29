@@ -64,10 +64,11 @@ def segundo_escenario(ventana, protagonista, sprites, rect_personaje, plataforma
                 mirando_derecha = True
 
         # Lógica de movimiento y otras acciones
+        dibujar_jefe(ventana, mickey_mouse, sprites_mickey_mouse, rect_mickey_mouse, pygame.time.get_ticks())
         aplicar_gravedad(protagonista, rect_personaje, plataformas_segundo_escenario)
         dibujar_plataformas(ventana, plataformas_segundo_escenario , sprite_plataforma)  # Asegúrate de que las plataformas estén correctas
         
-        disparar(rect_personaje, proyectiles, mirando_derecha, teclas, protagonista, tiempo_actual)
+        disparar(rect_personaje, proyectiles, teclas, protagonista, tiempo_actual)
         # Dibujar los proyectiles
         dibujar_proyectiles(ventana, proyectiles)
         # Mover los proyectiles
