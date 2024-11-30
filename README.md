@@ -2,7 +2,8 @@
 
 ## Descripción
 
-¡Bienvenido a nuestro emocionante juego de plataformas desarrollado con Pygame! En este juego, controlas a un protagonista aventurero que debe atravesar diferentes niveles, enfrentarse a enemigos y superar desafíos para ganar. Al final de cada partida ganada, puedes ingresar tu nombre y ver cómo te comparas con otros jugadores en nuestro sistema de ranking que muestra los 5 mejores puntajes.
+¡Bienvenido a nuestro emocionante juego de plataformas desarrollado con Pygame! En este juego, controlas a un protagonista aventurero que debe atravesar diferentes niveles, enfrentarse a enemigos y superar un gran desafio para ganar. Al final de cada partida ganada, puedes ingresar tu nombre y ver cómo te comparas con otros jugadores en nuestro sistema de ranking que muestra los 5 mejores puntajes.
+Video del juego : https://www.youtube.com/watch?v=BtwKmiVCn1g
 
 ![image](https://github.com/user-attachments/assets/81ef9092-7692-4017-96f9-c3b82478588b)
 
